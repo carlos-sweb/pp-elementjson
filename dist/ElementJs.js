@@ -8,7 +8,6 @@
   // We use `self` instead of `window` for `WebWorker` support.
   var root = typeof self == 'object' && self.self === self && self ||
             typeof global == 'object' && global.global === global && global;
-
   // Set up Backbone appropriately for the environment. Start with AMD.
   if (typeof define === 'function' && define.amd) {
     define(['underscore', 'jquery', 'exports'], function(_, $, exports) {
@@ -16,7 +15,6 @@
       // others that may still expect a global Backbone.
       root.ElementJs = factory(root, exports, _, $);
     });
-
   // Next for Node.js or CommonJS. jQuery may not be needed as a module.
   } else if (typeof exports !== 'undefined') {
     var _ = require('underscore'), $;
@@ -34,10 +32,16 @@ const TAG_notclose = ['img','meta','link','script','br'];
 // function register components
 var register = function(name,obj){	
 	if( _.isObject(obj) ){
-		this.components = Object.assign( this.components || {} , obj ) ;
+		this._components[name] = Object.assign( this._components[name] || {} , obj ) ;
 	};
 };
 
+/**
+ * @function createAttr
+ * @author Carlos Illesca <c4rl0sill3sc4@gmail.com>
+ * @param {(string|object)} attributes - Listado de attributos para ingresar en el elemento
+ * @returns {string} cadena con los attributos html formateados en su formato ejemplo: id="myid" name="myname"
+ */
 var createAttr = function(attr){
 	var _attr = "";
 	if( _.isObject(attr) ){
@@ -58,11 +62,16 @@ var createAttr = function(attr){
 	};
 	return _attr;
 }
+
+/**
+ * @function create
+ * @author Carlos Illesca <c4rl0sill3sc4@gmail.com>
+ * @param {(object|Array)} objHtml - Objecto o Array para la construcción del componente html
+ * @returns {string} cadena en formato html
+ */
 var create = function(objHtml){
-		if(  !_.isFunction(objHtml.forEach)  ){ objHtml=[objHtml]   };
-		
-		var EString = "";
-		
+		if(  !_.isFunction(objHtml.forEach)  ){ objHtml=[objHtml]   };	
+		var EString = ""
 		for(var i = 0; i < objHtml.length;i++){
 			 const tag  = objHtml[i].tag || objHtml[i].t || "div" ;
 			 const beforeContent = objHtml[i].beforeContent || objHtml[i].bc || "";
@@ -71,7 +80,6 @@ var create = function(objHtml){
 			 const attr = objHtml[i].attr || objHtml[i].a || {};
 			 const attrString = createAttr(attr);
 			 const each = objHtml[i].each || null;
-
 
 			 const children = objHtml[i].children || objHtml[i].c || null;
 			
@@ -103,7 +111,7 @@ return {
 	extend:function(options){
 		return  function(options){
 			// define content for components
-			this.components = {};
+			this._components = {};
 			this.options = options || {}
 			this.TAG_notclose = TAG_notclose;
 			// function register components
@@ -117,6 +125,11 @@ return {
 			this.getTemplate = function(vars){
 				return _.template(this.get())(vars);
 			}
+
+			this.components = function(name){
+				return _.clone(this._components[name]) || {};
+			};
+
 		}.bind(this,options)
 	}
 }
