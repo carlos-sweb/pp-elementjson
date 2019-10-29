@@ -34,7 +34,7 @@ const TAG_notclose = ['img','meta','link','script','br'];
 // function register components
 var register = function(name,obj){	
 	if( _.isObject(obj) ){
-		this.components = Object.assign( this.components || {} , obj ) ;
+		this._components[name] = Object.assign( this._components[name] || {} , obj ) ;
 	};
 };
 
@@ -72,7 +72,6 @@ var create = function(objHtml){
 			 const attrString = createAttr(attr);
 			 const each = objHtml[i].each || null;
 
-
 			 const children = objHtml[i].children || objHtml[i].c || null;
 			
 			 if(notClose){
@@ -103,7 +102,7 @@ return {
 	extend:function(options){
 		return  function(options){
 			// define content for components
-			this.components = {};
+			this._components = {};
 			this.options = options || {}
 			this.TAG_notclose = TAG_notclose;
 			// function register components
@@ -117,6 +116,11 @@ return {
 			this.getTemplate = function(vars){
 				return _.template(this.get())(vars);
 			}
+
+			this.components = function(name){
+				return _.clone(this._components[name]) || {};
+			};
+
 		}.bind(this,options)
 	}
 }
