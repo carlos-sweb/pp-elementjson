@@ -10,7 +10,7 @@
     <title>carlos-sweb@ElementJs</title>
   </head>
 <body>
-<div id="app" ></div>
+<ul id="app" ></ul>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/voca/1.4.0/voca.min.js" ></script>
@@ -19,14 +19,26 @@
   
   var Element = ElementJs.extend({})
   var elem = new Element();
-  elem.register("hola","<h1>hola</h1>");
+
+  var saludo = {
+      t:"h1",
+      ac:"Hola hno walter",
+      a:"id@name|style@color:green;"
+  };
+
+  elem.register("saludo",saludo);
+  console.log(  elem.components("saludo")  );
+  
   elem.create({
-    t:"h1",
-    bc:"hola",
-    a:"novalidate|id@textid",
-  });
-  $("#app").html( v.escapeHtml(elem.get())  );
+    t:"button",
+    a:"button button-primary",
+    each:"list",
+    bc:"<%=item%>"
+  });  
+  $("#app").html(   elem.getTemplate({list:["hola","chao","Estamos","Algo"]}));
 
 </script>
+
+
 </body>
 </html>
