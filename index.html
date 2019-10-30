@@ -7,38 +7,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>carlos-sweb@ElementJs</title>
   </head>
-<body>
-<ul id="app" ></ul>
+<body id="app" >
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/voca/1.4.0/voca.min.js" ></script>
-<script src="dist/ElementJs.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ <script src="dist/ElementJs.js" ></script>
 <script>
   
   var Element = ElementJs.extend({})
   var elem = new Element();
 
-  var saludo = {
-      t:"h1",
-      ac:"Hola hno walter",
-      a:"id@name|style@color:green;"
-  };
+  elem.register('BbtnDefault',{t:"button",a:"class@btn"});
+  elem.register('BbtnPrimary',elem.components("BbtnDefault",{a:"class@btn btn-primary",}));
+  elem.register('BbtnSecondary',elem.components("BbtnDefault",{a:"class@btn btn-secondary"}));
 
-  elem.register("saludo",saludo);
-  console.log(  elem.components("saludo")  );
-  
-  elem.create({
-    t:"button",
-    a:"button button-primary",
-    each:"list",
-    bc:"<%=item%>"
-  });  
-  $("#app").html(   elem.getTemplate({list:["hola","chao","Estamos","Algo"]}));
+
+
+
+elem.register('navMenu',{
+   t:"ul",
+   a:"class@navbar-nav",
+   c:[{
+    t:"li",
+    each:"navMenu.list",
+    bc:"<%=item.text%>"
+   }]
+},{
+  list:[{
+    "text":"Estadistica",
+    "url":"/#/estadistica"
+  },{
+    "text":"Clientes",
+    "url":"/#/clientes"
+  }] 
+});
+
+elem.register("MyNavBar",{
+    t:"nav",
+    a:"class@navbar navbar sticky-top navbar-expand-lg navbar-light bg-light mdc-elevation--z1 animated fadeIn delay-1s navbar-light navbar-expand-lg",
+    c:[
+      {a:"class@navbar-brand",bc:"<%=MyNavBar.title%>"},
+      {a:"class@navbar-collapse collapse",c:[elem.components("navMenu")]}
+    ]
+},{
+  title:"Mi Sistema"
+});
+
+elem.create([
+  elem.components("MyNavBar"),
+]); 
+
+var list = ["hola","chao","Estamos","Algo"];
+
+$("#app").html(   elem.getTemplate()   );
 
 </script>
-
-
 </body>
 </html>

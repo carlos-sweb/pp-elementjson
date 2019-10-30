@@ -30,9 +30,18 @@
 // List tag not close
 const TAG_notclose = ['img','meta','link','script','br'];
 // function register components
-var register = function(name,obj){	
-	if( _.isObject(obj) ){
-		this._components[name] = Object.assign( this._components[name] || {} , obj ) ;
+var register = function(name,obj,data){
+
+	const _data = data || {};
+	const _obj = obj || {};
+
+	if( _.isObject(_obj) ){
+		if( !_.isEmpty(_obj) ){
+			if( !_.isEmpty(_data) ){
+			 this.dataVars = Object.assign(this.dataVars,_.object([name],[_data]));
+			}
+			this._components[name] = Object.assign(  {} , {"o":obj,"d":data} );
+		};
 	};
 };
 
@@ -110,9 +119,12 @@ var get = function(type){
 return {
 	extend:function(options){
 		return  function(options){
+			this.dataVars = {};
 			// define content for components
 			this._components = {};
+			
 			this.options = options || {}
+			
 			this.TAG_notclose = TAG_notclose;
 			// function register components
 			this.register = register.bind(this)
@@ -120,14 +132,24 @@ return {
 			this.create = function(objHtml){
 				this.EString = create(objHtml);
 			}
+			
 			this.get = get.bind(this)
 
-			this.getTemplate = function(vars){
-				return _.template(this.get())(vars);
+			this.getTemplate = function(dataVars){
+				_.extend(this.dataVars,dataVars)
+				return _.template(this.get())(this.dataVars);
 			}
 
-			this.components = function(name){
-				return _.clone(this._components[name]) || {};
+			this.components = function(name,extend){
+
+				const components = this._components[name] || {};
+				
+				const components_clone = _.clone(components);
+				
+				extend = extend || {};
+
+				return _.extend(components["o"],extend);
+
 			};
 
 		}.bind(this,options)
