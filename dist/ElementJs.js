@@ -40,7 +40,8 @@ var register = function(name,obj,data){
 			if( !_.isEmpty(_data) ){
 			 this.dataVars = Object.assign(this.dataVars,_.object([name],[_data]));
 			}
-			this._components[name] = Object.assign(  {} , {"o":obj,"d":data} );
+			this._components[name] = Object.assign({}, {"o":obj,"d":data});
+			
 		};
 	};
 };
@@ -139,16 +140,20 @@ return {
 				_.extend(this.dataVars,dataVars)
 				return _.template(this.get())(this.dataVars);
 			}
+			
+			this.clone = function(o){
+				return JSON.parse(JSON.stringify(o))
+			}
 
 			this.components = function(name,extend){
 
 				const components = this._components[name] || {};
 				
-				const components_clone = _.clone(components);
+			const clone = this.clone(components)
 				
 				extend = extend || {};
 
-				return _.extend(components["o"],extend);
+				return _.extend(clone["o"],extend);
 
 			};
 

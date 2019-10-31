@@ -10,8 +10,12 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>carlos-sweb@ElementJs</title>
   </head>
-<body id="app" >
-
+<body >
+	<div class="container">
+	<div id="app"></div>
+	
+	<button role="button" class="btn btn-primary">h</button>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/voca/1.4.0/voca.min.js" ></script>
@@ -20,13 +24,12 @@
 <script>
   
   var Element = ElementJs.extend({})
-  var elem = new Element();
 
-  elem.register('BbtnDefault',{t:"button",a:"class@btn"});
-  elem.register('BbtnPrimary',elem.components("BbtnDefault",{a:"class@btn btn-primary",}));
-  elem.register('BbtnSecondary',elem.components("BbtnDefault",{a:"class@btn btn-secondary"}));
+var elem = new Element();
 
-
+elem.register('BbtnDefault',{t:"button",a:"class@btn"});
+  elem.register('BbtnPrimary',elem.components("BbtnDefault",{a:"class@btn btn-primary"}));
+ elem.register('BbtnSecondary',elem.components("BbtnDefault",{a:"class@btn btn-secondary"}));
 
 
 elem.register('navMenu',{
@@ -59,12 +62,15 @@ elem.register("MyNavBar",{
 });
 
 elem.create([
-  elem.components("MyNavBar"),
+elem.components("BbtnPrimary",{"bc":"<%=text%>"}),
+ elem.components("BbtnSecondary",{"bc":"que!!!"})
 ]); 
 
-var list = ["hola","chao","Estamos","Algo"];
+var html = elem.getTemplate({
+	text:"hola"
+})
 
-$("#app").html(   elem.getTemplate()   );
+$("#app").html( html  );
 
 </script>
 </body>
