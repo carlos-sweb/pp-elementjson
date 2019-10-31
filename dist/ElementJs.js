@@ -27,6 +27,35 @@
   }
 })(function(root, ElementJs, _, $){
 'use strict';
+
+
+
+
+let ObjectRegister = function(name,{o,d}){
+
+	this.name = name;
+	this.iden = this.name+_.uniqueId("_");
+
+	this.o = o || [];
+	this.d = d || {};
+	this.clone = function(o){
+		let o_vtr;
+		try{
+			o_vtr = JSON.parse(JSON.stringify(o));	
+		}catch(e){
+			console.log("Error ObjectRegister",e);
+			o_vtr = {};
+		}
+		return o_vtr;
+	};
+	this.get = function(obj,data){
+		let o = this.clone(this.o);
+		let d = this.clone(this.d);
+		return _.object(["o",'d'],[o,d]) ;
+	}
+}
+
+
 // List tag not close
 const TAG_notclose = ['img','meta','link','script','br'];
 // function register components
@@ -37,10 +66,7 @@ var register = function(name,obj,data){
 
 	if( _.isObject(_obj) ){
 		if( !_.isEmpty(_obj) ){
-			if( !_.isEmpty(_data) ){
-			 this.dataVars = Object.assign(this.dataVars,_.object([name],[_data]));
-			}
-			this._components[name] = Object.assign({}, {"o":obj,"d":data});
+			this._components[name] =  new ObjectRegister(name,Object.assign({}, {"o":_obj,"d":_data})) ;
 			
 		};
 	};
@@ -70,7 +96,7 @@ var createAttr = function(attr){
 	    	
 	    };
 	};
-	return _attr;
+	return _attr === "" ? "":" "+_attr;
 }
 
 /**
@@ -80,35 +106,44 @@ var createAttr = function(attr){
  * @returns {string} cadena en formato html
  */
 var create = function(objHtml){
+
+		
 		if(  !_.isFunction(objHtml.forEach)  ){ objHtml=[objHtml]   };	
+		
 		var EString = ""
 		for(var i = 0; i < objHtml.length;i++){
-			 const tag  = objHtml[i].tag || objHtml[i].t || "div" ;
-			 const beforeContent = objHtml[i].beforeContent || objHtml[i].bc || "";
-			 const afterContent = objHtml[i].afterContent || objHtml[i].ac || "";
-			 const notClose = _.indexOf(['img','meta','link','script','br'],tag) != -1;
-			 const attr = objHtml[i].attr || objHtml[i].a || {};
-			 const attrString = createAttr(attr);
-			 const each = objHtml[i].each || null;
 
-			 const children = objHtml[i].children || objHtml[i].c || null;
-			
-			 if(notClose){
-			 	 EString += "<"+tag+" "+attrString+">";
-			 }else{
-			 	
-			 	EString += _.isNull(each) ? "" : 
-			 	"<% if(typeof "+each+" !== 'undefined' ) _.each("+each+",function(item,iterator){%>";
-				EString += "<"+tag+" "+attrString+">\n";
-				EString += beforeContent;
-				if(!_.isNull(children)){
-					EString += create(children);
-				};
-				EString += afterContent;
-				EString += "</"+tag+">\n"; 
-				EString += _.isNull(each) ? "" : "<%})%>";
+			if(objHtml[i].constructor.name == 'Object'){
+				 const tag  = objHtml[i].tag || objHtml[i].t || "div" ;
+				 const beforeContent = objHtml[i].beforeContent || objHtml[i].bc || "";
+				 const afterContent = objHtml[i].afterContent || objHtml[i].ac || "";
+				 const notClose = _.indexOf(['img','meta','link','script','br'],tag) != -1;
+				 const attr = objHtml[i].attr || objHtml[i].a || {};
+				 const attrString = createAttr(attr);
+				 const each = objHtml[i].each || null;
 
-			 };
+				 const children = objHtml[i].children || objHtml[i].c || null;
+				
+				 if(notClose){
+				 	 EString += "<"+tag+" "+attrString+">";
+				 }else{
+				 	
+				 	EString += _.isNull(each) ? "" : 
+				 	"<% if(typeof "+each+" !== 'undefined' ) _.each("+each+",function(item,iterator){%>";
+					EString += "<"+tag+attrString+">";
+					EString += beforeContent;
+					if(!_.isNull(children)){
+						EString += create(children);
+					};
+					EString += afterContent;
+					EString += "</"+tag+">"; 
+					EString += _.isNull(each) ? "" : "<%})%>";
+
+				 };
+			}else{
+				console.log(objHtml[i]);
+				EString += _.template(create(objHtml[i]["o"]))(objHtml[i]["d"]);
+			};
 		};
 		return EString;
 };
@@ -116,6 +151,23 @@ var create = function(objHtml){
 var get = function(type){
 		return this.EString;	
 };
+
+/*
+var a = new ObjectRegister({
+	name:"btn",
+	data:{text:"Holi"},
+	element:[{t:"h1",bc:"hola <%=text%>"}]
+});
+
+var b = new ObjectRegister("btn",[{
+	t:"button",
+	bc:"<%=data.var()%>"
+}],{text:"hola"});
+
+
+console.log( _.template(create( a.element ))(a.data)  );
+*/
+
 
 return {
 	extend:function(options){
@@ -145,15 +197,21 @@ return {
 				return JSON.parse(JSON.stringify(o))
 			}
 
-			this.components = function(name,extend){
+			this.components = function(name,extend,data){
 
 				const components = this._components[name] || {};
 				
-			const clone = this.clone(components)
+				const clone = this.clone(components)
 				
-				extend = extend || {};
+				data = data || {};
 
-				return _.extend(clone["o"],extend);
+				_.extend(clone["d"],data);	
+
+				extend = extend || {};
+				
+				_.extend(clone["o"],extend)
+				
+				return new ObjectRegister(clone.name,{o:clone.o,d:clone.d});
 
 			};
 
