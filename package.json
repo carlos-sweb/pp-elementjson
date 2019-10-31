@@ -9,7 +9,5 @@
   "author": "",
   "license": "ISC",
   "dependencies": {},
-  "devDependencies": {
-    "jsdoc": "^3.6.3"
-  }
+  "devDependencies": {}
 }
