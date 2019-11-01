@@ -14,6 +14,9 @@
 	<div class="container">
 	 <div id="app" style="padding-top:10px"  ></div>
   </div>
+
+  <button id="show" >Show</button>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/voca/1.4.0/voca.min.js" ></script>
@@ -44,12 +47,49 @@ elem.register('btn-dark',
   elem.components("btn",{})["o"],
   {text:"<%=text%>",type:"btn-dark"}
 );
+
+
+
+elem.register('modal',[{
+  a:"id@<%=id%>|class@modal fade|tabindex@-1|role@dialog|aria-labelledby@myLargeModalLabel|aria-hidden@true",
+  c:[{
+    a:"class@modal-dialog modal-lg modal-dialog-scrollable",
+    c:[{
+      a:"class@modal-content",
+      c:[{
+        a:"class@modal-header",
+        c:[{
+          t:"h5",
+          a:"class@modal-title",
+          bc:"<%=title%>"
+        },{
+          t:"button",
+          a:"type@button|data-dismiss@modal|arial-label@Close|class@close",
+          bc:"<span aria-hidden=\"true\">×</span>"
+        }]
+      },{
+        a:"class@modal-body"
+      },{
+        a:"class@modal-footer",
+        bc:"<button type='button' class='btn btn-success' data-dismiss='modal'><%=btn.close%></button>"
+      }]
+    }]
+  }]
+}],{
+  id:"",
+  title:"",
+  btn:{
+    close:"Cerrar"
+  }
+});
+
+
+
 // Create
 elem.create([
   
 //elem.components("btn",{},{text:"Primary",type:"btn-dark"}),
-elem.components({name:"btn",extend:{},data:{text:"h"}})
- // elem.components("btn-dark",{},{text:"Dark"}),
+elem.components("modal",{},{id:"modalDeleteItems",title:"Eliminar Cliente"}),
  // elem.components("btn",{},{text:"Agregar",type:"btn-success"}),
  // elem.components("btn",{},{text:"jajaja",type:"btn-dark"}),
  // elem.components("btn",{},{text:"",type:"btn-danger"}),
@@ -62,6 +102,15 @@ var html = elem.getTemplate({
 });
 // Declare
 $("#app").html(html);
+
+
+$("#show").on("click",()=>{
+
+  $("#modalDeleteItems").modal("show");
+
+})
+
+
 
 </script>
 </body>
