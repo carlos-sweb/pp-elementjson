@@ -197,8 +197,8 @@ return {
 				return JSON.parse(JSON.stringify(o))
 			}
 
-			this.components = function(name,extend,data){
-
+			this.components = function({name,extend,data}){
+  alert(name)
 				const components = this._components[name] || {};
 				
 				const clone = this.clone(components)
