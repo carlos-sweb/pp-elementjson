@@ -39,12 +39,12 @@ elem.register(
 });
 // Register
 elem.register('btn-primary',
-  elem.components("btn",{})["o"],
+  elem.components({name:"btn",extend:{},data:{}})["o"],
   {text:"<%=text%>",type:"btn-primary"}
 );
 // Register
 elem.register('btn-dark',
-  elem.components("btn",{})["o"],
+  elem.components({name:"btn",extend:{},data:{}})["o"],
   {text:"<%=text%>",type:"btn-dark"}
 );
 
@@ -89,7 +89,15 @@ elem.register('modal',[{
 elem.create([
   
 //elem.components("btn",{},{text:"Primary",type:"btn-dark"}),
-elem.components("modal",{},{id:"modalDeleteItems",title:"Eliminar Cliente"}),
+elem.components(
+{
+	name:"modal",
+	extend:{},
+	data:{id:"modalDeleteItems",
+title:"Eliminar Cliente"}
+}
+
+),
  // elem.components("btn",{},{text:"Agregar",type:"btn-success"}),
  // elem.components("btn",{},{text:"jajaja",type:"btn-dark"}),
  // elem.components("btn",{},{text:"",type:"btn-danger"}),

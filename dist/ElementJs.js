@@ -197,7 +197,7 @@ return {
 				return JSON.parse(JSON.stringify(o))
 			}
 
-			this.components = function(name,extend,data){
+			this.components = function({name,extend,data}){
 
 				const components = this._components[name] || {};
 				
