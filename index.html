@@ -23,6 +23,17 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
  <script src="dist/ElementJs.js" ></script>
 <script>
+	
+	var lorem =`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris metus turpis, venenatis sit amet arcu blandit, iaculis vehicula risus. Vivamus a tempus magna. Pellentesque ut sodales odio. Curabitur sapien purus, blandit at risus sed, rutrum lobortis ligula. Vivamus ultrices sollicitudin suscipit. Ut vestibulum dui elit, ut facilisis purus porttitor hendrerit. Donec porta euismod erat, id fringilla dui feugiat vel. Donec ultrices mauris fringilla ante maximus vehicula eu vitae lectus. Morbi vel diam eget nunc sagittis placerat ac non elit. Sed nec vehicula neque, a venenatis nisi.
+
+Quisque fermentum ipsum mauris, sed tempor felis mollis eget. Mauris eget orci consectetur, ornare neque vel, pellentesque tellus. Curabitur vel mi eget augue aliquam sollicitudin. In interdum urna justo, et bibendum velit blandit ac. Nunc pellentesque efficitur libero, nec dictum ligula ornare et. Donec scelerisque augue auctor nunc placerat semper. Nunc gravida massa ut orci mattis, imperdiet cursus augue fringilla. Vivamus eleifend aliquet est, at efficitur lacus feugiat sit amet. Quisque est est, elementum vitae convallis quis, molestie vel turpis. Nunc posuere massa eu vestibulum venenatis. Quisque porttitor quam urna, euismod suscipit lacus hendrerit ut. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed ultrices leo diam. In ante erat, vestibulum non scelerisque eu, imperdiet vel libero. Maecenas felis ante, egestas vitae luctus mollis, tincidunt placerat purus.
+
+Duis varius quam vel turpis ultricies lacinia. Sed eget tincidunt urna, eu pulvinar neque. Proin dui eros, faucibus nec efficitur commodo, iaculis eget urna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam ac molestie elit. Mauris scelerisque nibh nec commodo scelerisque. Nunc feugiat purus sit amet nisl hendrerit, in imperdiet magna ullamcorper. Nunc non risus hendrerit, condimentum eros nec, lobortis libero. Integer id venenatis erat, nec vestibulum nulla.
+
+In interdum congue finibus. Sed ornare massa at pellentesque sodales. In a sollicitudin nisl. Curabitur ac elementum dui, quis consequat dui. Praesent diam orci, luctus eu dapibus non, tempor vel felis. Morbi interdum velit ut dictum egestas. Etiam condimentum, lacus vitae bibendum maximus, purus quam vehicula lacus, a pretium dui sem id odio. Donec sed gravida mauris. Donec in semper ligula. Ut hendrerit lobortis mi, sed fringilla dolor ullamcorper ac. Morbi consectetur dictum tempus. Proin consectetur tellus sed enim aliquet luctus. Vestibulum vel convallis nunc, porttitor cursus ex.
+
+Nulla id augue tellus. Curabitur placerat massa arcu, vitae pharetra nisi ornare vitae. Integer condimentum quam sem, a rhoncus metus viverra quis. Ut hendrerit odio enim, euismod porta tortor pellentesque quis. Donec convallis velit tempor, tempor lorem ut, egestas enim. Duis ut ultrices dui, tincidunt semper mi. Etiam quis nulla egestas, sollicitudin tortor sit amet, porttitor tortor.
+`;
 // Call Element
 var Element = ElementJs.extend({})
 // Declare
@@ -48,12 +59,10 @@ elem.register('btn-dark',
   {text:"<%=text%>",type:"btn-dark"}
 );
 
-
-
 elem.register('modal',[{
   a:"id@<%=id%>|class@modal fade|tabindex@-1|role@dialog|aria-labelledby@myLargeModalLabel|aria-hidden@true",
   c:[{
-    a:"class@modal-dialog modal-lg modal-dialog-scrollable",
+    a:"class@modal-dialog <%if(centered){%>modal-dialog-centered<%}%>|role@document",
     c:[{
       a:"class@modal-content",
       c:[{
@@ -63,12 +72,14 @@ elem.register('modal',[{
           a:"class@modal-title",
           bc:"<%=title%>"
         },{
+        	  i:"btnclose",
           t:"button",
           a:"type@button|data-dismiss@modal|arial-label@Close|class@close",
           bc:"<span aria-hidden=\"true\">×</span>"
         }]
       },{
-        a:"class@modal-body"
+        a:"class@modal-body",
+        bc:"<%=content%>"
       },{
         a:"class@modal-footer",
         bc:"<button type='button' class='btn btn-success' data-dismiss='modal'><%=btn.close%></button>"
@@ -76,11 +87,14 @@ elem.register('modal',[{
     }]
   }]
 }],{
+	 btnclose:true,
   id:"",
   title:"",
+  centered:false,
   btn:{
     close:"Cerrar"
-  }
+  },
+  content:""
 });
 
 
@@ -93,8 +107,14 @@ elem.components(
 {
 	name:"modal",
 	extend:{},
-	data:{id:"modalDeleteItems",
-title:"Eliminar Cliente"}
+	data:{ 
+	id:"modalDeleteItems",
+ title:"Eliminar Cliente",
+ btnclose:true,
+ centered:false,
+ content:lorem
+ 
+ }
 }
 
 ),

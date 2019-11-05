@@ -123,11 +123,14 @@ var create = function(objHtml){
 				 const each = objHtml[i].each || null;
 
 				 const children = objHtml[i].children || objHtml[i].c || null;
-				
+				 
+const _if = objHtml[i].i || null;
+				 
 				 if(notClose){
 				 	 EString += "<"+tag+" "+attrString+">";
 				 }else{
 				 	
+				 	EString += _.isNull(_if) ? "":"<% if("+_if+"){ %>";
 				 	EString += _.isNull(each) ? "" : 
 				 	"<% if(typeof "+each+" !== 'undefined' ) _.each("+each+",function(item,iterator){%>";
 					EString += "<"+tag+attrString+">";
@@ -138,6 +141,7 @@ var create = function(objHtml){
 					EString += afterContent;
 					EString += "</"+tag+">"; 
 					EString += _.isNull(each) ? "" : "<%})%>";
+					EString += _.isNull(_if) ? "":"<%}%>";
 
 				 };
 			}else{
