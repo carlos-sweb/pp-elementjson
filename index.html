@@ -12,10 +12,13 @@
   </head>
 <body >
 	<div class="container">
+		
+		<button data-target="#modalDeleteItems" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+class="btn btn-primary" >Show</button>
+
 	 <div id="app" style="padding-top:10px"  ></div>
   </div>
-
-  <button id="show" >Show</button>
+  
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
@@ -72,7 +75,7 @@ elem.register('modal',[{
           a:"class@modal-title",
           bc:"<%=title%>"
         },{
-        	  i:"btnclose",
+        	  i:"btnclosetop",
           t:"button",
           a:"type@button|data-dismiss@modal|arial-label@Close|class@close",
           bc:"<span aria-hidden=\"true\">×</span>"
@@ -82,17 +85,31 @@ elem.register('modal',[{
         bc:"<%=content%>"
       },{
         a:"class@modal-footer",
-        bc:"<button type='button' class='btn btn-success' data-dismiss='modal'><%=btn.close%></button>"
+        c:[{
+        	 t:"button",
+        	 a:"data-dismiss@modal|class@btn <%=btnCancel._class%>",
+        	 bc:"<%=btnCancel.text%>"
+        },{
+        	 t:"button",
+        	 a:"class@btn <%=btnSuccess._class%>",
+        	 bc:"<%=btnSuccess.text%>"
+        }]
       }]
     }]
   }]
 }],{
-	 btnclose:true,
+	 btnclosetop:true,
+	 btnaction:true,
   id:"",
   title:"",
   centered:false,
-  btn:{
-    close:"Cerrar"
+  btnSuccess:{
+  	  text:"Aceptar",
+  	  _class:"btn-primary",
+  },
+  btnCancel:{
+  	 text:"Cancelar",
+  	 _class:"btn-secondary"
   },
   content:""
 });
@@ -112,7 +129,8 @@ elem.components(
  title:"Eliminar Cliente",
  btnclose:true,
  centered:false,
- content:lorem
+ content:"hi",
+ btnSuccess:{text:"Eliminar",_class:"btn-danger"}
  
  }
 }
@@ -132,9 +150,9 @@ var html = elem.getTemplate({
 $("#app").html(html);
 
 
-$("#show").on("click",()=>{
+$(".show").on("click",function(){
 
-  $("#modalDeleteItems").modal("show");
+  $("#"+$(this).attr("data-modal")).modal("show");
 
 })
 
