@@ -28,6 +28,9 @@
 })(function(root, ElementJs, _, $){
 'use strict';
 
+
+
+
 let ObjectRegister = function(name,{o,d}){
 
 	this.name = name;
@@ -50,10 +53,8 @@ let ObjectRegister = function(name,{o,d}){
 		let d = this.clone(this.d);
 		return _.object(["o",'d'],[o,d]) ;
 	}
-	this.getTemplate = function(obj,data){
-		let o = this.clone(this.o);
-		let d = this.clone(this.d);
-		// Aqui esta la mano
+	this.render = function(){
+		return "hoka";
 	}
 }
 
@@ -125,16 +126,11 @@ var create = function(objHtml){
 				 const each = objHtml[i].each || null;
 
 				 const children = objHtml[i].children || objHtml[i].c || null;
-
-				 const _if = objHtml[i].i || null;
+				 
+const _if = objHtml[i].i || null;
 				 
 				 if(notClose){
-				 	EString += _.isNull(_if) ? "":"<% if("+_if+"){ %>";
-				 	EString += _.isNull(each) ? "" : 
-				 	"<% if(typeof "+each+" !== 'undefined' ) _.each("+each+",function("+each+"Item,"+each+"Iterator){%>";
-				 	EString += "<"+tag+" "+attrString+">";
-				 	EString += _.isNull(each) ? "" : "<%})%>";
-				 	EString += _.isNull(_if) ? "":"<%}%>";
+				 	 EString += "<"+tag+" "+attrString+">";
 				 }else{
 				 	
 				 	EString += _.isNull(_if) ? "":"<% if("+_if+"){ %>";
@@ -152,7 +148,7 @@ var create = function(objHtml){
 
 				 };
 			}else{
-					
+				console.log(objHtml[i]);
 				EString += _.template(create(objHtml[i]["o"]))(objHtml[i]["d"]);
 			};
 		};
@@ -178,6 +174,7 @@ var b = new ObjectRegister("btn",[{
 
 console.log( _.template(create( a.element ))(a.data)  );
 */
+
 
 return {
 	extend:function(options){
@@ -220,6 +217,8 @@ return {
 				extend = extend || {};
 				
 				_.extend(clone["o"],extend)
+				
+				alert(clone.name)
 				
 				return new ObjectRegister(clone.name,{o:clone.o,d:clone.d});
 

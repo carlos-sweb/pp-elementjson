@@ -115,10 +115,18 @@ elem.register('modal',[{
 });
 
 
+elem.register("alert",{
+	 a:"class@alert alert-<%=type%>"
+},{
+	type:"primary"
+});
+
+var text = elem.components("alert");
+
+alert(JSON.stringify(text))
 
 // Create
-elem.create([
-  
+elem.create([ 
 //elem.components("btn",{},{text:"Primary",type:"btn-dark"}),
 elem.components(
 {
@@ -130,8 +138,10 @@ elem.components(
  btnclose:true,
  centered:false,
  content:"hi",
- btnSuccess:{text:"Eliminar",_class:"btn-danger"}
- 
+ btnSuccess:{
+ 				text:"Eliminar",
+ 			_class:"btn-danger"
+ 	}
  }
 }
 
@@ -149,12 +159,6 @@ var html = elem.getTemplate({
 // Declare
 $("#app").html(html);
 
-
-$(".show").on("click",function(){
-
-  $("#"+$(this).attr("data-modal")).modal("show");
-
-})
 
 
 
