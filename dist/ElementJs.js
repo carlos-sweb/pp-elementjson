@@ -54,7 +54,10 @@ let ObjectRegister = function(name,{o,d}){
 		return _.object(["o",'d'],[o,d]) ;
 	}
 	this.render = function(){
-		return "hoka";
+			
+		let o = this.clone(this.o);
+		let d = this.clone(this.d);
+		return  _.template(create(o))(d);
 	}
 }
 
@@ -127,7 +130,7 @@ var create = function(objHtml){
 
 				 const children = objHtml[i].children || objHtml[i].c || null;
 				 
-const _if = objHtml[i].i || null;
+				 const _if = objHtml[i].i || null;
 				 
 				 if(notClose){
 				 	 EString += "<"+tag+" "+attrString+">";
@@ -148,7 +151,7 @@ const _if = objHtml[i].i || null;
 
 				 };
 			}else{
-				console.log(objHtml[i]);
+				
 				EString += _.template(create(objHtml[i]["o"]))(objHtml[i]["d"]);
 			};
 		};
@@ -218,7 +221,6 @@ return {
 				
 				_.extend(clone["o"],extend)
 				
-				alert(clone.name)
 				
 				return new ObjectRegister(clone.name,{o:clone.o,d:clone.d});
 

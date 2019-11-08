@@ -115,15 +115,27 @@ elem.register('modal',[{
 });
 
 
-elem.register("alert",{
-	 a:"class@alert alert-<%=type%>"
-},{
-	type:"primary"
+elem.register("alert",[{
+	 a:"class@alert alert-<%=type%>",
+   ac:"<%=message%>",
+}],{
+  message:"",
+	type:"primary"//primary secondary success danger warning info light dark
 });
 
-var text = elem.components("alert");
+var text = elem.components({name:"alert",etxend:{},
+  data:{
+      type:"secondary",
+      message:"Advertencia este cambio es permanente"
+}});
 
-alert(JSON.stringify(text))
+
+
+console.log(text);
+
+console.log(text.render());
+
+var _text = text.render();
 
 // Create
 elem.create([ 
@@ -158,6 +170,8 @@ var html = elem.getTemplate({
 });
 // Declare
 $("#app").html(html);
+
+$("#app").append(_text)
 
 
 
