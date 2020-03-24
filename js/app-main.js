@@ -6,43 +6,14 @@ requirejs.config({
 		"jquery":"node_modules/zepto/dist/zepto.min",
 		"backbone":"node_modules/backbone/backbone-min",
 		"underscore":"node_modules/underscore/underscore-min",
-		"config":"js/app-config"
+		"config":"js/app-config",
+		"router":"js/app-router"
 	}
 });
 
-require(["alpine","jquery","backbone","underscore"],function(alpine,$,Backbone,_){
+require(["router"],function(router){
 	
-	console.log("Work");
-
-	var Workspace = Backbone.Router.extend({
-		initialize:function(){
-
-			console.log("initialize");
-
-		    Backbone.history.start();
-
-		},
-
-  routes: {
-    "":                 "help",    // #help
-    "search/:query":        "search",  // #search/kiwis
-    "search/:query/p:page": "search"   // #search/kiwis/p7
-  },
-
-  help: function() {
-    	console.log("hola a todos");
-  },
-
-  search: function(query, page) {
-   
-  }
-
-});
-
-
-new Workspace();
-
-	 
+	new router();
 
 
 });
