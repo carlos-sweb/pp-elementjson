@@ -10,10 +10,14 @@
   "license": "ISC",
   "dependencies": {
     "alpinejs": "^2.2.1",
+    "backbone": "^1.4.0",
+    "codemirror": "^5.52.2",
     "material-components-web": "^5.1.0",
+    "material-icons": "^0.3.1",
     "normalize.css": "^8.0.1",
     "requirejs": "^2.3.6",
-    "typeface-lato": "0.0.75"
+    "typeface-lato": "0.0.75",
+    "zepto": "^1.2.0"
   },
   "devDependencies": {},
   "repository": {
