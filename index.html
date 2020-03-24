@@ -1,42 +1,72 @@
 <!doctype html>
 <html lang="es">
   <head>
-    <!-- Required meta tags -->
     <link rel="icon" type="image/png" href="static/icon.png">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,maximum-scale=1.0, user-scalable=0"> 
     <title>carlos-sweb@ElementJs</title>
+    <link rel="stylesheet" type="text/css" href="node_modules/normalize.css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="node_modules/material-components-web/dist/material-components-web.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
 <body >
-	<div class="container">
-		
-		<button data-target="#modalDeleteItems" data-toggle="modal" data-backdrop="static" data-keyboard="false"
-class="btn btn-primary" >Show</button>
 
-	 <div id="app" style="padding-top:10px"  ></div>
+
+
+<header class="mdc-top-app-bar mdc-elevation--z1">
+  <div class="mdc-top-app-bar__row">
+    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+      <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+      <span class="mdc-top-app-bar__title">ElementJs</span>
+    </section>
+    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+      <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Download">file_download</button>
+      <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Print this page">print</button>
+      <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Bookmark this page">bookmark</button>
+    </section>
   </div>
-  
+</header>
 
+<aside class="mdc-drawer">
+  <div class="mdc-drawer__header">
+    <h3 class="mdc-drawer__title">Mail</h3>
+    <h6 class="mdc-drawer__subtitle">email@material.io</h6>
+  </div>
+  <div class="mdc-drawer__content">
+    <nav class="mdc-list">
+      <a class="mdc-list-item mdc-list-item--activated" href="#" aria-current="page">
+        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>
+        <span class="mdc-list-item__text">Inbox</span>
+      </a>
+      <a class="mdc-list-item" href="#">
+        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">send</i>
+        <span class="mdc-list-item__text">Outgoing</span>
+      </a>
+      <a class="mdc-list-item" href="#">
+        <i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
+        <span class="mdc-list-item__text">Drafts</span>
+      </a>
+    </nav>
+  </div>
+</aside>
+
+<div class="mdc-drawer-app-content">
+    App Content
+  </div>
+
+<script data-main="js/main" type="text/javascript" src="node_modules/requirejs/require.js" ></script>  
+
+<!--
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/voca/1.4.0/voca.min.js" ></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
  <script src="dist/ElementJs.js" ></script>
+ -->
+ <!--
 <script>
-	
-	var lorem =`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris metus turpis, venenatis sit amet arcu blandit, iaculis vehicula risus. Vivamus a tempus magna. Pellentesque ut sodales odio. Curabitur sapien purus, blandit at risus sed, rutrum lobortis ligula. Vivamus ultrices sollicitudin suscipit. Ut vestibulum dui elit, ut facilisis purus porttitor hendrerit. Donec porta euismod erat, id fringilla dui feugiat vel. Donec ultrices mauris fringilla ante maximus vehicula eu vitae lectus. Morbi vel diam eget nunc sagittis placerat ac non elit. Sed nec vehicula neque, a venenatis nisi.
 
-Quisque fermentum ipsum mauris, sed tempor felis mollis eget. Mauris eget orci consectetur, ornare neque vel, pellentesque tellus. Curabitur vel mi eget augue aliquam sollicitudin. In interdum urna justo, et bibendum velit blandit ac. Nunc pellentesque efficitur libero, nec dictum ligula ornare et. Donec scelerisque augue auctor nunc placerat semper. Nunc gravida massa ut orci mattis, imperdiet cursus augue fringilla. Vivamus eleifend aliquet est, at efficitur lacus feugiat sit amet. Quisque est est, elementum vitae convallis quis, molestie vel turpis. Nunc posuere massa eu vestibulum venenatis. Quisque porttitor quam urna, euismod suscipit lacus hendrerit ut. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed ultrices leo diam. In ante erat, vestibulum non scelerisque eu, imperdiet vel libero. Maecenas felis ante, egestas vitae luctus mollis, tincidunt placerat purus.
 
-Duis varius quam vel turpis ultricies lacinia. Sed eget tincidunt urna, eu pulvinar neque. Proin dui eros, faucibus nec efficitur commodo, iaculis eget urna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam ac molestie elit. Mauris scelerisque nibh nec commodo scelerisque. Nunc feugiat purus sit amet nisl hendrerit, in imperdiet magna ullamcorper. Nunc non risus hendrerit, condimentum eros nec, lobortis libero. Integer id venenatis erat, nec vestibulum nulla.
-
-In interdum congue finibus. Sed ornare massa at pellentesque sodales. In a sollicitudin nisl. Curabitur ac elementum dui, quis consequat dui. Praesent diam orci, luctus eu dapibus non, tempor vel felis. Morbi interdum velit ut dictum egestas. Etiam condimentum, lacus vitae bibendum maximus, purus quam vehicula lacus, a pretium dui sem id odio. Donec sed gravida mauris. Donec in semper ligula. Ut hendrerit lobortis mi, sed fringilla dolor ullamcorper ac. Morbi consectetur dictum tempus. Proin consectetur tellus sed enim aliquet luctus. Vestibulum vel convallis nunc, porttitor cursus ex.
-
-Nulla id augue tellus. Curabitur placerat massa arcu, vitae pharetra nisi ornare vitae. Integer condimentum quam sem, a rhoncus metus viverra quis. Ut hendrerit odio enim, euismod porta tortor pellentesque quis. Donec convallis velit tempor, tempor lorem ut, egestas enim. Duis ut ultrices dui, tincidunt semper mi. Etiam quis nulla egestas, sollicitudin tortor sit amet, porttitor tortor.
-`;
 // Call Element
 var Element = ElementJs.extend({})
 // Declare
@@ -158,7 +188,8 @@ elem.components(
 }
 
 ),
- // elem.components("btn",{},{text:"Agregar",type:"btn-success"}),
+
+//elem.components("btn",{},{text:"Agregar",type:"btn-success"}),
  // elem.components("btn",{},{text:"jajaja",type:"btn-dark"}),
  // elem.components("btn",{},{text:"",type:"btn-danger"}),
   //elem.components("primary",{},{label:"Otro"}),
@@ -170,12 +201,12 @@ var html = elem.getTemplate({
 });
 // Declare
 $("#app").html(html);
-
 $("#app").append(_text)
 
 
 
 
 </script>
+-->
 </body>
 </html>

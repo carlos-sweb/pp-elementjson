@@ -26,6 +26,7 @@
     root.ElementJs = factory(root, {}, root._, root.jQuery || root.Zepto || root.ender || root.$);
   }
 })(function(root, ElementJs, _, $){
+
 'use strict';
 
 
@@ -62,8 +63,15 @@ let ObjectRegister = function(name,{o,d}){
 }
 
 
-// List tag not close
-const TAG_notclose = ['img','meta','link','script','br'];
+/**
+ * @function TAG_notclose
+ * @author Carlos Illesca <c4rl0sill3sc4@gmail.com>
+ * @param {strimg} Tag - Etiqueta para saber si es necesario la declaración de cierre
+ * @returns {boolean}  
+ */
+const TAG_notclose = function( tag ){
+	return _.indexOf(['img','meta','link','script','br'],tag) != -1;
+};
 // function register components
 var register = function(name,obj,data){
 
@@ -123,7 +131,9 @@ var create = function(objHtml){
 				 const tag  = objHtml[i].tag || objHtml[i].t || "div" ;
 				 const beforeContent = objHtml[i].beforeContent || objHtml[i].bc || "";
 				 const afterContent = objHtml[i].afterContent || objHtml[i].ac || "";
+				 
 				 const notClose = _.indexOf(['img','meta','link','script','br'],tag) != -1;
+
 				 const attr = objHtml[i].attr || objHtml[i].a || {};
 				 const attrString = createAttr(attr);
 				 const each = objHtml[i].each || null;
@@ -161,22 +171,6 @@ var create = function(objHtml){
 var get = function(type){
 		return this.EString;	
 };
-
-/*
-var a = new ObjectRegister({
-	name:"btn",
-	data:{text:"Holi"},
-	element:[{t:"h1",bc:"hola <%=text%>"}]
-});
-
-var b = new ObjectRegister("btn",[{
-	t:"button",
-	bc:"<%=data.var()%>"
-}],{text:"hola"});
-
-
-console.log( _.template(create( a.element ))(a.data)  );
-*/
 
 
 return {

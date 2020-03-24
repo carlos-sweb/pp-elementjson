@@ -6,8 +6,22 @@
   "scripts": {
     "docs": "./node_modules/.bind/jsdoc -c ./jsdoc.json"
   },
-  "author": "",
+  "author": "Carlos Illesca",
   "license": "ISC",
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "alpinejs": "^2.2.1",
+    "material-components-web": "^5.1.0",
+    "normalize.css": "^8.0.1",
+    "requirejs": "^2.3.6",
+    "typeface-lato": "0.0.75"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlos-sweb/ElementJs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/carlos-sweb/ElementJs/issues"
+  },
+  "homepage": "https://github.com/carlos-sweb/ElementJs#readme"
 }
