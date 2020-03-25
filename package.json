@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "alpinejs": "^2.2.1",
+    "animate.css": "^3.7.2",
     "backbone": "^1.4.0",
     "codemirror": "^5.52.2",
     "material-components-web": "^5.1.0",

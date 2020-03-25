@@ -1,10 +1,33 @@
-define(["backbone","underscore","jquery"],function(Backbone,_,$){
+define(
+[
+"backbone" , "underscore" , "jquery" , "ElementJS" , "elementjson-materialui" ],
+function( Backbone , _ , $ , ElementJS , elementjsonMaterialui ){
 
 
-  	var Workspace = Backbone.Router.extend({
+console.log( elementjsonMaterialui  );
+
+console.log(  );
+
+ElementJS.registerGroup(elementjsonMaterialui);
+
+
+console.log( ElementJS.getComponent("topAppBar",{text:"MyText"}) );
+
+console.log( ElementJS.create(
+
+ {"tag":"span","bc":"<%=text%>"}
+
+))
+
+
+console.log(ElementJS);
+
+
+
+let Workspace = Backbone.Router.extend({
   	initialize:function(){
 
-  		  $("body").html("<h1 id='hola' >hola</h1>");
+  		  $("body").prepend("<header class='mdc-top-app-bar mdc-elevation--z1 animated fadeIn' ><div class='mdc-top-app-bar__row'></div></header>");
 
   	    Backbone.history.start();
 
@@ -26,7 +49,9 @@ define(["backbone","underscore","jquery"],function(Backbone,_,$){
 
 });
 
-		return Workspace;
+return Workspace;
+
+
 
 
 });

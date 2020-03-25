@@ -29,9 +29,6 @@
 
 'use strict';
 
-
-
-
 let ObjectRegister = function(name,{o,d}){
 
 	this.name = name;
@@ -172,7 +169,7 @@ var get = function(type){
 		return this.EString;	
 };
 
-
+/*
 return {
 	extend:function(options){
 		return  function(options){
@@ -223,4 +220,9 @@ return {
 		}.bind(this,options)
 	}
 }
+*/
+
+return {"hola":"hola"};
+
+
 })

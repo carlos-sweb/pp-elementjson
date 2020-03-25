@@ -6,14 +6,15 @@ requirejs.config({
 		"jquery":"node_modules/zepto/dist/zepto.min",
 		"backbone":"node_modules/backbone/backbone-min",
 		"underscore":"node_modules/underscore/underscore-min",
+		
+		"ElementJS":"dist/elementjson",
+		"elementjson-materialui":"dist/elementjson-materialui/elementjson-materialui",
+
 		"config":"js/app-config",
 		"router":"js/app-router"
 	}
 });
 
 require(["router"],function(router){
-	
 	new router();
-
-
 });
