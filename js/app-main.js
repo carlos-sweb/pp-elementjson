@@ -11,7 +11,9 @@ requirejs.config({
 		"elementjson-materialui":"dist/elementjson-materialui/elementjson-materialui",
 
 		"config":"js/app-config",
-		"router":"js/app-router"
+		"router":"js/app-router",
+
+		"view-main":"js/app-view-main"
 	}
 });
 

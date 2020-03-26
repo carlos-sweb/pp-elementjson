@@ -28,6 +28,36 @@
 'use strict';
 
 
+elementjson.tags = {
+	".a"  :"abbr",
+	".ad" :"address",
+	".ar" :"area",
+	".at" :"article",
+	".as" :"aside",
+	".au" :"audio",
+	".b"  :"base",
+	"bdo" :"bdo",
+	".bq" :"blockquote",
+	".bd" :"body",
+	"br"  :"br",
+	".bu" :"button",
+	".c"  :"canvas",
+	".cp" :"caption",
+	".ci" :"cite",
+	".co" :"code",
+
+	".h":"header"
+};
+/**
+ * @function getTag
+ * @author Carlos Illesca <c4rl0sill3sc4@gmail.com>
+ * @param {strimg} tag - Nombre del tag https://www.w3schools.com/TAGS/default.ASP
+ * @returns {string} - El nombre del tag  
+ */
+elementjson.getTag = function(tag){
+	return _.has(this.tags,tag) ? this.tags[tag] : tag ;
+}
+
 /**
  * @function TAG_notclose
  * @author Carlos Illesca <c4rl0sill3sc4@gmail.com>
@@ -77,8 +107,9 @@ elementjson.create = function(objHtml){
 		var EString = ""
 		for(var i = 0; i < objHtml.length;i++){
 
-			if(objHtml[i].constructor.name == 'Object'){
+			//if(objHtml[i].constructor.name == 'Object'){
 				 const tag  = objHtml[i].tag || objHtml[i].t || "div" ;
+				 const ptag = elementjson.getTag(tag);
 				 const beforeContent = objHtml[i].beforeContent || objHtml[i].bc || "";
 				 const afterContent = objHtml[i].afterContent || objHtml[i].ac || "";
 				 
@@ -93,27 +124,26 @@ elementjson.create = function(objHtml){
 				 const _if = objHtml[i].i || null;
 				 
 				 if(notClose){
-				 	 EString += "<"+tag+" "+attrString+">";
+				 	 EString += "<"+ptag+" "+attrString+">";
 				 }else{
 				 	
 				 	EString += _.isNull(_if) ? "":"<% if("+_if+"){ %>";
 				 	EString += _.isNull(each) ? "" : 
 				 	"<% if(typeof "+each+" !== 'undefined' ) _.each("+each+",function(item,iterator){%>";
-					EString += "<"+tag+attrString+">";
+					EString += "<"+ptag+attrString+">";
 					EString += beforeContent;
 					if(!_.isNull(children)){
 						EString += this.create(children);
 					};
 					EString += afterContent;
-					EString += "</"+tag+">"; 
+					EString += "</"+ptag+">"; 
 					EString += _.isNull(each) ? "" : "<%})%>";
 					EString += _.isNull(_if) ? "":"<%}%>";
 
 				 };
-			}else{
-				
-				EString += _.template(this.create(objHtml[i]["o"]))(objHtml[i]["d"]);
-			};
+			//}else{
+				//EString += _.template(this.create(objHtml[i]["o"]))(objHtml[i]["d"]);
+			//};
 		};
 		return EString;
 
@@ -155,14 +185,12 @@ elementjson.registerGroup = function(ListComponent){
 elementjson.getComponent = function(name, data){
 	 
 	 const components = this.Components.getComponents(name);
-	 const _object = this.Components.getComponents(name)["o"];
-	 const _data = this.Components.getComponents(name)["d"];
+	 const _object = components["o"];
+	 const _data = _.extend(components["d"],data);
 	 return _.template(this.create(  _object ))( _data ) ;	
 
 };
 
 return elementjson;
-
-
 
 })
