@@ -7,7 +7,7 @@ let Router = Backbone.Router.extend({
     
     initialize:function(){
 
-      new viewMain;
+      new viewMain({el:"#body"});
   	  Backbone.history.start();
 
   	},
