@@ -1,10 +1,14 @@
 define(
-["backbone" , "underscore" , "jquery" , "ElementJS" , "elementjson-materialui" , "view-main" ],
-function( Backbone , _ , $ , ElementJS , elementjsonMaterialui, viewMain ){
+["backbone" , "underscore" , "jquery"  , "view-main" ],
+function( Backbone , _ , $ , viewMain ){
 
 
 let Router = Backbone.Router.extend({
-    
+    preinitialize:function(){
+      //https://www.w3schools.com/tags/ref_language_codes.asp
+      this.languague = ["es","en","pt"];
+      
+    },
     initialize:function(){
 
       new viewMain({el:"#body"});
@@ -12,10 +16,14 @@ let Router = Backbone.Router.extend({
 
   	},
     routes: {
-      "": "home",
+      ":languague": "page",
+      '*noFound':'noFound'
     },
-    home: function() {
-        
+    page : function( languague ) {
+      console.log("PAgegegege",languague);   
+    },
+    noFound:function(){
+      console.log("NO Found ");
     }
 });
 

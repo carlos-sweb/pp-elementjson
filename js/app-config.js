@@ -1,4 +1,3 @@
-define([],funftion(){
-
-	
+define([],function(){
+    
 });

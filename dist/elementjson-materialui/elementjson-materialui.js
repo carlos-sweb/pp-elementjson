@@ -6,7 +6,31 @@ var  baseModal = { "o" : [{
     "t":"aside",
     "a":"class@mdc-drawer mdc-drawer--modal",
     "c":[{
-        "a":"class@mdc-drawer__content"
+        "a":"class@mdc-drawer__header",
+        "c":[{
+                "t":"h3",
+                "bc":"Guía",
+                "a":"class@mdc-drawer__title"
+            },
+            {
+                "t":"h6",
+                "bc":"c4rl0sill3sc4@gmail.com",
+                "a":"class@mdc-drawer__subtitle"
+            }]
+    },{
+        "a":"class@mdc-drawer__content",
+        "c":[{
+            "t":"nav",
+            "a":"class@mdc-list",
+            "c":[{
+                "t":"a",
+                "a":"class@mdc-list-item|href@#|tabindex@0",
+                "c":[
+                    {"t":"i","a":"class@material-icons mdc-list-item__graphic|aria-hidden@true","bc":"drafts"},
+                    {"t":"span","a":"class@mdc-list-item__text","bc":"Drafts"}
+                ]
+            }]
+        }]
     }]   
 },{
     "a":"class@mdc-drawer-scrim"
@@ -42,7 +66,7 @@ var  baseModal = { "o" : [{
   "css":"",
   "elevation":"mdc-elevation--z1",
   "title":"",
-  "id":true
+  "id":true,
 }};
 
 
