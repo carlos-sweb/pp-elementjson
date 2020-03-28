@@ -58,8 +58,7 @@ var  baseModal = { "o" : [{
             ]
         }]
     },{
-        "a":"class@mdc-top-app-bar--fixed-adjust",
-        "bc":"hola"
+        "a":"class@mdc-top-app-bar--fixed-adjust|id@view-content"
     }],
 }],
 "d":{

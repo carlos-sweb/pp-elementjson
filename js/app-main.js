@@ -11,10 +11,13 @@ requirejs.config({
 		"ElementJS":"dist/elementjson",
 		"elementjson-materialui":"dist/elementjson-materialui/elementjson-materialui",
 
+		"helper-router":"js-helper/helper-router",
+
 		"config":"js/app-config",
 		"router":"js/app-router",
 
-		"view-main":"js/app-view-main"
+		"view-main":"js/app-view-main",
+		"view-content":"js/app-view-content"
 	}
 });
 

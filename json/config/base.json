@@ -1,6 +1,7 @@
 {
 	"top-app-bar":{
-		"done":true,
 		"style":"dense"
-	}
+	},
+	"language_accept":["es","en","pt"],
+	"language_default":"es"
 }

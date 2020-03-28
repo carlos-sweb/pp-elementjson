@@ -1,11 +1,6 @@
 define(
-["backbone","jquery","underscore","ElementJS" , "elementjson-materialui","mdc"],
-function(Backbone,$,_ ,ElementJS , elementjsonMaterialui,mdc){
-
-
-
-
-
+["backbone","jquery","underscore","ElementJS" , "elementjson-materialui","mdc" , "view-content"],
+function(Backbone,$,_ ,ElementJS , elementjsonMaterialui, mdc , viewContent){
 
 // Agregar los componentes registrados para
 ElementJS.registerGroup( elementjsonMaterialui );
@@ -16,9 +11,10 @@ const viewMain =  Backbone.View.extend({
         this.MDCDrawer    = mdc.drawer.MDCDrawer;    
         this.MDCTopAppBar = mdc.topAppBar.MDCTopAppBar;
         this.MDCList      = mdc.list.MDCList;
+        this.viewContent = viewContent;
     },
     initialize:function(){
-        console.log("aaaaaaaaaaaaaaaa");
+      
         this.render();
     },
     render:function(){
@@ -41,6 +37,9 @@ const viewMain =  Backbone.View.extend({
     },
     close:function(){
         this.drawer.open = !this.drawer.open;
+    },
+    renderViewContent:function(){
+        new this.viewContent({el:"#view-content"});
     }
     
 });
