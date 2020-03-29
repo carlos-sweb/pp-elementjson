@@ -39,6 +39,5 @@ define(["underscore"],function(_){
           };
         }
     };
-
     return Helper;
 });

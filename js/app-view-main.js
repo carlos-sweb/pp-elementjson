@@ -11,6 +11,7 @@ const viewMain =  Backbone.View.extend({
         this.MDCDrawer    = mdc.drawer.MDCDrawer;    
         this.MDCTopAppBar = mdc.topAppBar.MDCTopAppBar;
         this.MDCList      = mdc.list.MDCList;
+        this.MDCMenu      = mdc.menu.MDCMenu;
         this.viewContent = viewContent;
     },
     initialize:function(){
@@ -25,6 +26,9 @@ const viewMain =  Backbone.View.extend({
         // create mdc element mdcTopAppBar
         if( elementTopAppBar.length != 0  ){
 
+            this.menu = new this.MDCMenu(document.querySelector('.mdc-menu'));
+            
+
             this.topAppBar  = new this.MDCTopAppBar(elementTopAppBar[0]);
             this.drawer     = this.MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
             this.list = this.MDCList.attachTo(document.querySelector('.mdc-list'));
@@ -33,10 +37,14 @@ const viewMain =  Backbone.View.extend({
         };
     },
     events:{
-        "click .mdc-list-item":"close"
+        "click #button_language":"menu_language",
+        "click .close-drawer":"close"
     },
     close:function(){
         this.drawer.open = !this.drawer.open;
+    },
+    menu_language:function(){
+        this.menu.open = true;
     },
     renderViewContent:function(){
         new this.viewContent({el:"#view-content"});

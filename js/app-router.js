@@ -11,7 +11,9 @@ let Router = Backbone.Router.extend({
 
       console.log("El Lenguague del navegador: " + userLang);
 
+      //https://www.flaticon.es/packs/countrys-flags
       //https://www.w3schools.com/tags/ref_language_codes.asp
+      
       this.helper           = Helper;
       this.language_active  = null;
       this.language_accept  = ["es","en","pt"];
