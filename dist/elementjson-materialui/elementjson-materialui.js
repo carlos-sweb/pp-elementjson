@@ -1,6 +1,28 @@
 define(function(){
 
 
+var mdcButton  = {
+    "o":[{
+        "t":".bu",
+        "a":{
+            "class":"mdc-button",
+            "data-mdc-auto-init":"MDCRipple",
+        },
+        "c":[{
+            "a":"class@mdc-button__ripple",
+        },{
+            "t":".s",
+            "a":"class@mdc-button__label",
+            "bc":"<%=text%>"
+        }]
+    }],
+    "d":{
+        "text":"",
+        "type":""
+    }
+};   
+
+
 var menu = {
     "o":[{
         "t":"button",
@@ -73,8 +95,11 @@ var  baseModal = { "o" : [{
                         "a":"class@mdc-menu-surface--anchor",
                         "c":[{
                             "t":"button",
-                            "a":"class@material-icons mdc-top-app-bar__action-item mdc-icon-button|aria-label@language|id@button_language",
-                            "bc":"account_circle"
+                            "a":"class@mdc-top-app-bar__action-item mdc-icon-button|aria-label@language|id@button_language",
+                            "c":[{
+                                "t":"img",
+                                "a":"src@static/language/es.svg|class@flag-img-language"
+                            }]
                         },{
                             "a":"class@mdc-menu mdc-menu-surface|tabindex@-1",
                             "c":[{
@@ -85,7 +110,7 @@ var  baseModal = { "o" : [{
                                     "a":"class@mdc-list-item mdc-ripple-upgraded|role@menuitem|tabeindex@-1",
                                     "c":[{
                                         "t":"img",
-                                        "a":"src@static/language/es.svg|style@height:50%;"
+                                        "a":"src@static/language/es.svg|class@flag-img-language"
                                     },{
                                         "t":"span",
                                         "bc":"&nbsp;Español"
@@ -95,7 +120,7 @@ var  baseModal = { "o" : [{
                                     "a":"class@mdc-list-item mdc-ripple-upgraded|role@menuitem|tabeindex@-1",
                                     "c":[{
                                         "t":"img",
-                                        "a":"src@static/language/en.svg|style@height:50%;"
+                                        "a":"src@static/language/en.svg|class@flag-img-language"
                                     },{
                                         "t":"span",
                                         "bc":"&nbsp;Ingles"
@@ -105,7 +130,7 @@ var  baseModal = { "o" : [{
                                     "a":"class@mdc-list-item mdc-ripple-upgraded|role@menuitem|tabeindex@-1",
                                     "c":[{
                                         "t":"img",
-                                        "a":"src@static/language/pt.svg|style@height:50%;"
+                                        "a":"src@static/language/pt.svg|class@flag-img-language"
                                     },{
                                         "t":"span",
                                         "bc":"&nbsp;Portugues"
@@ -115,7 +140,7 @@ var  baseModal = { "o" : [{
                                     "a":"class@mdc-list-item mdc-ripple-upgraded|role@menuitem|tabeindex@-1",
                                     "c":[{
                                         "t":"img",
-                                        "a":"src@static/language/fr.svg|style@height:50%;"
+                                        "a":"src@static/language/fr.svg|class@flag-img-language"
                                     },{
                                         "t":"span",
                                         "bc":"&nbsp;Frances"
@@ -125,7 +150,7 @@ var  baseModal = { "o" : [{
                                     "a":"class@mdc-list-item mdc-ripple-upgraded|role@menuitem|tabeindex@-1",
                                     "c":[{
                                         "t":"img",
-                                        "a":"src@static/language/de.svg|style@height:50%;"
+                                        "a":"src@static/language/de.svg|class@flag-img-language"
                                     },{
                                         "t":"span",
                                         "bc":"&nbsp;Alemán"
@@ -135,7 +160,7 @@ var  baseModal = { "o" : [{
                                     "a":"class@mdc-list-item mdc-ripple-upgraded|role@menuitem|tabeindex@-1",
                                     "c":[{
                                         "t":"img",
-                                        "a":"src@static/language/ru.svg|style@height:50%;"
+                                        "a":"src@static/language/ru.svg|class@flag-img-language"
                                     },{
                                         "t":"span",
                                         "bc":"&nbsp;Ruso"
@@ -145,7 +170,7 @@ var  baseModal = { "o" : [{
                                     "a":"class@mdc-list-item mdc-ripple-upgraded|role@menuitem|tabeindex@-1",
                                     "c":[{
                                         "t":"img",
-                                        "a":"src@static/language/ja.svg|style@height:50%;"
+                                        "a":"src@static/language/ja.svg|class@flag-img-language"
                                     },{
                                         "t":"span",
                                         "bc":"&nbsp;Japonés"
@@ -155,7 +180,7 @@ var  baseModal = { "o" : [{
                                     "a":"class@mdc-list-item mdc-ripple-upgraded|role@menuitem|tabeindex@-1",
                                     "c":[{
                                         "t":"img",
-                                        "a":"src@static/language/zh.svg|style@height:50%;"
+                                        "a":"src@static/language/zh.svg|class@flag-img-language"
                                     },{
                                         "t":"span",
                                         "bc":"&nbsp;Chino"
@@ -172,7 +197,10 @@ var  baseModal = { "o" : [{
             ]
         }]
     },{
-        "a":"class@mdc-top-app-bar--fixed-adjust|id@view-content"
+        "tag":"main",
+        "c":[{
+            "a":"class@mdc-drawer-app-content mdc-top-app-bar--fixed-adjust|id@view-content"
+        }]
     }],
 }],
 "d":{
@@ -183,9 +211,10 @@ var  baseModal = { "o" : [{
 }};
 
 
-var components = {
+const components = {
     baseModal:baseModal,
-    menu:menu
+    menu:menu,
+    mdcButton:mdcButton
 };
 
 return components;

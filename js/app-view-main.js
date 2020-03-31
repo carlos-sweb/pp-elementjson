@@ -1,24 +1,46 @@
 define(
-["backbone","jquery","underscore","ElementJS" , "elementjson-materialui","mdc" , "view-content"],
-function(Backbone,$,_ ,ElementJS , elementjsonMaterialui, mdc , viewContent){
+["backbone","jquery","underscore","ElementJS" , "elementjson-materialui","mdc" , "view-content","alpine"],
+function(Backbone,$,_ ,ElementJS , elementjsonMaterialui, mdc , viewContent ,alpine){
+
+
+console.log(alpine);
 
 // Agregar los componentes registrados para
 ElementJS.registerGroup( elementjsonMaterialui );
 
 const viewMain =  Backbone.View.extend({
     preinitialize:function(){
-
         this.MDCDrawer    = mdc.drawer.MDCDrawer;    
         this.MDCTopAppBar = mdc.topAppBar.MDCTopAppBar;
         this.MDCList      = mdc.list.MDCList;
         this.MDCMenu      = mdc.menu.MDCMenu;
+        this.MDCRipple     = mdc.ripple.MDCRipple;
         this.viewContent = viewContent;
     },
     initialize:function(){
+
+        
+ 
       
         this.render();
+        
+    },
+    beforeRender:function(){
+        console.log("beforeRender");
+    },
+    afterRender:function(){
+        console.log("afterRender");
     },
     render:function(){
+
+        const mdcButton = ElementJS.getComponent('mdcButton',{"text":"hola"}); 
+
+        this.$el.prepend(mdcButton);
+
+
+        mdc.autoInit();
+
+        /*
         // load html base for panel
         this.$el.prepend(ElementJS.getComponent("baseModal",{title:"ElementJson.js"}));
         // get element topAppBar
@@ -35,6 +57,8 @@ const viewMain =  Backbone.View.extend({
             this.list.wrapFocus = true;
             this.topAppBar.listen("MDCTopAppBar:nav",this.close.bind(this));
         };
+        */
+
     },
     events:{
         "click #button_language":"menu_language",

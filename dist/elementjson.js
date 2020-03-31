@@ -46,6 +46,7 @@ elementjson.tags = {
 	".ci" :"cite",
 	".co" :"code",
 
+	".s":"span",
 	".h":"header"
 };
 /**
@@ -161,7 +162,15 @@ var Components = elementjson.Components = {};
  * @returns {object} cadena en formato html
  */
 Components.getComponents = function(name){
-	 return _.has(this.List,name) ?  this.List[name] : {};
+	
+	const noFoundComponent = {
+		"o":{"t":"p","bc":"<%=text%> @Component:<%=name%>"},
+		"d":{"text":"Error","name":""}
+	};
+
+	_.extend(noFoundComponent["d"],{"name":name ? name :""});
+
+	return _.has(this.List,name) ?  this.List[name] : noFoundComponent;
 };
 /**
  * @object List
@@ -182,12 +191,30 @@ elementjson.registerGroup = function(ListComponent){
  * @param {string} name - Nombre del componente
  * @param {object} data - lista de la data a remplazar 
  */
-elementjson.getComponent = function(name, data){
+elementjson.getComponent = function( name , data , callback , manipulate ){
 	 
 	 const components = this.Components.getComponents(name);
-	 const _object = components["o"];
-	 const _data = _.extend(components["d"],data);
-	 return _.template(this.create(  _object ))( _data ) ;	
+	 let _object = {};
+	 let _data = {};
+
+	 if( _.isFunction(manipulate) ){
+		const _manipulate = manipulate(components); 
+		_object = _manipulate["o"];
+		_data      = _.isNull(data) ? _manipulate["d"] : _.extend(_manipulate["d"],data);
+	 }else{
+		_object   = components["o"];
+		_data      = _.isNull(data) ? components["d"] : _.extend(components["d"],data);
+	 };
+	 
+
+	 const _template  = _.template(this.create(  _object ))( _data ) ; 
+	 if( _.isFunction(callback) ){
+		 const _callback = callback( _template ); 
+		 return _.isUndefined( _callback ) ? "" : _callback ;
+	 }else{
+		 return _template;
+	 };
+	 
 
 };
 
