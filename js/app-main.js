@@ -3,6 +3,9 @@ requirejs.config({
 	baseUrl:"",
 	paths:{
 		"alpine":"node_modules/alpinejs/dist/alpine",
+		
+		"reactive":"dist/element-reactive",
+
 		"jquery":"node_modules/zepto/dist/zepto.min",
 		"backbone":"node_modules/backbone/backbone-min",
 		"underscore":"node_modules/underscore/underscore-min",

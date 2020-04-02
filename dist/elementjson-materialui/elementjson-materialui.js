@@ -5,7 +5,9 @@ var mdcButton  = {
     "o":[{
         "t":".bu",
         "a":{
+            "x-data":"dropdown()",
             "class":"mdc-button",
+            "x-on:click":"hello",
             "data-mdc-auto-init":"MDCRipple",
         },
         "c":[{
@@ -54,7 +56,7 @@ var  baseModal = { "o" : [{
         "a":"class@mdc-drawer__content",
         "c":[{
             "t":"nav",
-            "a":"class@mdc-list",
+            "a":"class@mdc-list|data-mdc-auto-init@MDCList",
             "c":[{
                 "t":"a",
                 "a":"class@mdc-list-item close-drawer|href@#|tabindex@0",
@@ -101,7 +103,7 @@ var  baseModal = { "o" : [{
                                 "a":"src@static/language/es.svg|class@flag-img-language"
                             }]
                         },{
-                            "a":"class@mdc-menu mdc-menu-surface|tabindex@-1",
+                            "a":"class@mdc-menu mdc-menu-surface|tabindex@-1|data-mdc-auto-init@MDCMenu|data-open@true",
                             "c":[{
                                 "t":"ul",
                                 "a":"class@mdc-list|role=menu|aria-hidden@true",

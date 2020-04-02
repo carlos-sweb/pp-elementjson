@@ -106,6 +106,7 @@
     };
   }
   function saferEval(expression, dataContext, additionalHelperVariables = {}) {
+    console.log(additionalHelperVariables);
     return new Function(['$data', ...Object.keys(additionalHelperVariables)], `var result; with($data) { result = ${expression} }; return result`)(dataContext, ...Object.values(additionalHelperVariables));
   }
   function saferEvalNoReturn(expression, dataContext, additionalHelperVariables = {}) {
