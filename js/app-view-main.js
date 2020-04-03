@@ -5,60 +5,22 @@ define(
 "ElementJS" ,
 "elementjson-materialui",
 "mdc" ,
-"view-content"],
-function(Backbone,$,_ ,ElementJS , elementjsonMaterialui, mdc , viewContent){
-
-    
-
-    let _menu = Backbone.View.extend({
-        initialize:function(){
-            this.render();
-        },
-        render:function(){
-            console.log(this.$el);
-        },
-        open:function(){
-            
-        },
-        close:function(){
-
-        }
-    });
-
-
-
-    function dropdown() {
-        return {
-            show: false,
-            open() { this.show = true },
-            close() { this.show = false },
-            isOpen() { return this.show === true },
-            hello(){
-                console.log("Hello from alpine");
-            },
-        }
-    }
-
-    window.dropdown = dropdown;
-
-    
-
+"view-content",
+"directive"],
+function(Backbone,$,_ ,ElementJS , elementjsonMaterialui, mdc , viewContent,directive){
 
 // Agregar los componentes registrados para
 ElementJS.registerGroup( elementjsonMaterialui );
 
 const viewMain =  Backbone.View.extend({
     preinitialize:function(){
-
-
+       
         this.MDCDrawer    = mdc.drawer.MDCDrawer;    
         this.MDCTopAppBar = mdc.topAppBar.MDCTopAppBar;
         this.MDCList      = mdc.list.MDCList;
         this.MDCMenu      = mdc.menu.MDCMenu;
         this.MDCRipple     = mdc.ripple.MDCRipple;
         this.viewContent = viewContent;
-
-        new _menu({el:".mdc-menu"});
 
     },
     initialize:function(){
@@ -77,6 +39,8 @@ const viewMain =  Backbone.View.extend({
 
         // load html base for panel
         this.$el.prepend(ElementJS.getComponent("baseModal",{title:"ElementJson.js"}));
+        
+        /*
         // get element topAppBar
         const elementTopAppBar = this.$el.find(".mdc-top-app-bar").first();
         // create mdc element mdcTopAppBar
@@ -93,8 +57,17 @@ const viewMain =  Backbone.View.extend({
         };
         
 
-       mdc.autoInit();
+        mdc.autoInit();
+        */
 
+        /*
+        new directive["MDCTopAppBar"]({
+           el:this.el,
+           mdc:mdc.topAppBar.MDCTopAppBar
+        });
+        */
+
+        new directive({el:this.el,mdc:mdc});
       
 
     },

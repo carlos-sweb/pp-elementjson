@@ -11,10 +11,14 @@ requirejs.config({
 		"underscore":"node_modules/underscore/underscore-min",
 		"mdc":"node_modules/material-components-web/dist/material-components-web.min",
 		
+		
 		"ElementJS":"dist/elementjson",
 		"elementjson-materialui":"dist/elementjson-materialui/elementjson-materialui",
+		"directive":"dist/elementjson-materialui/directive",
 
 		"helper-router":"js-helper/helper-router",
+
+		
 
 		"config":"js/app-config",
 		"router":"js/app-router",

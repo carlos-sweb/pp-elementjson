@@ -7,7 +7,6 @@ define(
     
         },
         initialize:function(){
-            console.log(this);
             this.render();
         },
         render:function(){
