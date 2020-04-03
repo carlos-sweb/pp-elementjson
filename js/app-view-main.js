@@ -30,16 +30,12 @@ const viewMain =  Backbone.View.extend({
         
     },
     render:function(){
-        /*
-        document.addEventListener("MDCAutoInit:End", (events) => {
-            console.log("Termino");
-        });
-        */
-
 
         // load html base for panel
         this.$el.prepend(ElementJS.getComponent("baseModal",{title:"ElementJson.js"}));
         
+        new directive({el:this.el,mdc:mdc});
+
         /*
         // get element topAppBar
         const elementTopAppBar = this.$el.find(".mdc-top-app-bar").first();
@@ -55,21 +51,8 @@ const viewMain =  Backbone.View.extend({
         
             this.topAppBar.listen("MDCTopAppBar:nav",this.close.bind(this));
         };
-        
-
-        mdc.autoInit();
+    
         */
-
-        /*
-        new directive["MDCTopAppBar"]({
-           el:this.el,
-           mdc:mdc.topAppBar.MDCTopAppBar
-        });
-        */
-
-        new directive({el:this.el,mdc:mdc});
-      
-
     },
     events:{
         "click #button_language":"menu_language",

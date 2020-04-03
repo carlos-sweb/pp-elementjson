@@ -99,25 +99,39 @@ const directives = {
 
 
 class __directive{
+
     constructor(options){
+
         this.el = options.el || null;
+
         this.mdc = options.mdc || null;
 
         this.EventEmitter = new EventEmitter();
+
+        this.elInit = [];
      
         Object.entries(directives).forEach(function([key,value]){
+            
             if( typeof value.el != "undefined" ){
                 
                 const el = value.el;
+                
                 const view = value.view;
+                
                 const els = this.el.querySelectorAll(el)
+                
                 if( els.length > 0 ){
-                    new view({el:el});
-                };
+
+                   this.elInit.push( new view( { el : el , mdc :  this.mdc } ) );
+
+                }
+
             }
+
         }.bind(this));
 
     }
+
 }
 
 return __directive;
