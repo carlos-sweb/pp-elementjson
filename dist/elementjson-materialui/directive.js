@@ -63,7 +63,11 @@ define([
     MDCTopAppBar,
     EventEmitter
 ){
-
+/**
+ * @constant
+ * @type {object}
+ * @default
+ */
 const directives = {
     MDCButton:MDCButton,
     MDCCards:MDCCards,
@@ -97,19 +101,24 @@ const directives = {
     MDCTopAppBar:MDCTopAppBar
 };
 
-
+/**
+ * Crear una nueva directiva
+ * @class
+ */
 class __directive{
-
+    /**
+     * @constructor
+    */
     constructor(options){
-
+        
         this.el = options.el || null;
-
+        
         this.mdc = options.mdc || null;
-
+        
         this.EventEmitter = new EventEmitter();
-
-        this.elInit = [];
-     
+        
+        this.elInits = [];
+        
         Object.entries(directives).forEach(function([key,value]){
             
             if( typeof value.el != "undefined" ){
@@ -122,14 +131,91 @@ class __directive{
                 
                 if( els.length > 0 ){
 
-                   this.elInit.push( new view( { el : el , mdc :  this.mdc } ) );
+                   this.elInits.push( new view( { el : el , mdc :  this.mdc } ) );
 
                 }
 
             }
 
         }.bind(this));
+        // -------------------------------------------------------------------------------
+        this.elInits.forEach((elInit)=>{
 
+            if( !_.isNull(elInit) ){
+
+                console.log(elInit.listenTo.length);
+
+                if( elInit.listenTo.length > 0 ){
+                if( _.isFunction( elInit.listenTo.forEach ) ){ 
+                    elInit.listenTo.forEach((_listenTo)=>{
+                        /**
+                         * @const _name_function
+                         * @type {string}
+                         * @description 
+                         */
+                        const _name_function = _listenTo[0];
+                        /**
+                         * @const view_connect
+                         * @type {string}
+                         * @description
+                         */
+                        const view_connect =  _listenTo[1].split(":");
+                        /**
+                         * @const view_connect_id
+                         * @type {string}
+                         * @description
+                         */
+                        const view_connect_id = view_connect[0];
+                        /**
+                         * @const view_connect_event
+                         * @type {string}
+                         * @description
+                         */
+                        const view_connect_event = view_connect[1];
+                        /**
+                         *@var elInitsFind
+                         *@type {array}
+                         *@description
+                         */
+                        var elInitsFind = this.elInitsFind(view_connect_id)
+                        // ---------------------------------------------------------
+                        if( elInitsFind.length == 1 ){
+                            
+                            if( _.isFunction( elInit[_name_function] ) ){
+
+                                elInitsFind[0].Events.on(
+
+                                    view_connect_event,
+    
+                                    elInit[_name_function].bind(elInit)
+    
+                                )
+                                
+                            }
+
+                        }
+                        // ---------------------------------------------------------
+                    })
+                }    
+                }
+
+            }
+
+        })
+        // -------------------------------------------------------------------------------
+
+    }
+    /**
+     * @function elInitsFind
+     * @param id { string } - Id de la view que se desea buscar
+     * @return { Backbone.View }
+    */
+    elInitsFind(id){
+      return _.filter(this.elInits,(elInit)=>{
+
+            return elInit.id == id;
+
+      });
     }
 
 }

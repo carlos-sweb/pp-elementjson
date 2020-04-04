@@ -1,15 +1,13 @@
 define(
-["backbone" , "underscore" , "jquery"  , "view-main" ,  "helper-router"  ],
+[ "backbone" , "underscore" , "jquery"  , "view-main" ,  "helper-router"  ],
 function( Backbone , _ , $ , viewMain , Helper , ){
-
-
 
 let Router = Backbone.Router.extend({
     preinitialize:function(){
 
       var userLang = navigator.language || navigator.userLanguage;
 
-      console.log("El Lenguague del navegador: " + userLang);
+      //console.log("El Lenguague del navegador: " + userLang);
 
       //https://www.flaticon.es/packs/countrys-flags
       //https://www.w3schools.com/tags/ref_language_codes.asp

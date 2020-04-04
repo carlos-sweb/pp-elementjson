@@ -5,9 +5,7 @@ var mdcButton  = {
     "o":[{
         "t":".bu",
         "a":{
-            "x-data":"dropdown()",
             "class":"mdc-button",
-            "x-on:click":"hello",
             "data-mdc-auto-init":"MDCRipple",
         },
         "c":[{
@@ -39,7 +37,7 @@ var menu = {
  */
 var  baseModal = { "o" : [{
     "t":"aside",
-    "a":"class@mdc-drawer mdc-drawer--modal",
+    "a":"class@mdc-drawer mdc-drawer--modal|ci-listenTo.open@topAppBarMain:nav|id@drawerMain",
     "c":[{
         "a":"class@mdc-drawer__header",
         "c":[{
@@ -73,7 +71,7 @@ var  baseModal = { "o" : [{
     "a":"class@mdc-drawer-app-content",
     "c":[{
         "t":".h",
-        "a":"class@mdc-top-app-bar <%=css%> <%=elevation%>|id@<%=_.uniqueId('topAppBar_')%>",
+        "a":"class@mdc-top-app-bar <%=css%> <%=elevation%>|id@topAppBarMain",
         "c":[{
             "a":"class@mdc-top-app-bar__row",
             "c":[
@@ -103,7 +101,7 @@ var  baseModal = { "o" : [{
                                 "a":"src@static/language/es.svg|class@flag-img-language"
                             }]
                         },{
-                            "a":"class@mdc-menu mdc-menu-surface|tabindex@-1|data-mdc-auto-init@MDCMenu|data-open@true",
+                            "a":"class@mdc-menu mdc-menu-surface|tabindex@-1|data-open@true",
                             "c":[{
                                 "t":"ul",
                                 "a":"class@mdc-list|role=menu|aria-hidden@true",

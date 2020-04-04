@@ -1,8 +1,10 @@
-define(['backbone'],function(Backbone){
-
+define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( Backbone , _ , $ , helperDirective ){
+    /**
+     * @const classIden - clase de css que afectara a esta view
+     */
     const classIden = '.mdc-drawer';
 
-    const viewMDCDrawer = Backbone.View.extend({
+    const viewMDCDrawer = Backbone.View.extend(_.extend({
         /**
          * @function preinitialize
          * pre-initializando variables 
@@ -18,17 +20,21 @@ define(['backbone'],function(Backbone){
 
             this.mdcEvents = [  ];
 
+            this.listenTo = [ ];
+
 
         },
         initialize:function(options){
+            
+            this.getId()
+           
+            this.getListenTo();
 
-            this.mdc = options.mdc || null;
+            const Mdc = options.mdc || null;     
 
             if( !_.isNull(this.mdc) ){
 
-                //  this.mdcEl = new this.mdc.topAppBar.MDCTopAppBar( this.el )
-
-                this.mdcEl = this.mdc.drawer.MDCDrawer.attachTo(this.el);
+                this.mdcEl = Mdc.drawer.MDCDrawer.attachTo(this.el);
 
             }
            
@@ -46,15 +52,18 @@ define(['backbone'],function(Backbone){
         },
         open:function(){
 
+            
             if( !_.isNull(this.mdcEl) ){
 
                 this.mdcEl.open = true;
 
             }
 
+           
+
         }
         
-    })
+    },helperDirective))
 
     return {view:viewMDCDrawer,el:classIden};
 

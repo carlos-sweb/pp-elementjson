@@ -1,8 +1,8 @@
-define(['backbone','underscore','jquery'],function(Backbone,_,$){
+define(['backbone','underscore','jquery','helper-directive'],function( Backbone , _ , $ , helperDirective ){
     
     const classIden = '.mdc-top-app-bar';
 
-    const viewMDCTopAppBar = Backbone.View.extend({
+    const viewMDCTopAppBar = Backbone.View.extend(_.extend({
         /**
          * @function preinitialize
          * pre-initializando variables 
@@ -12,11 +12,13 @@ define(['backbone','underscore','jquery'],function(Backbone,_,$){
 
             this.Events = {};
 
-            _.extend(this.Events, Backbone.Events);
+            _.extend( this.Events , Backbone.Events )
 
             this.mdcEl = null;
 
-            this.mdcEvents = [ "MDCTopAppBar:nav" ];
+            this.mdcEvents = [ "nav" ];
+
+            this.listenTo = []; 
 
         },
         /**
@@ -24,16 +26,20 @@ define(['backbone','underscore','jquery'],function(Backbone,_,$){
          * cuando se inicialize la vista
          */
         initialize:function(options){
+
+            this.getId()
+           
+            this.getListenTo();
             
-            this.mdc = options.mdc || null;
+            const Mdc = options.mdc || null;
 
             if( !_.isNull(this.mdc) ){
 
-                this.mdcEl = new this.mdc.topAppBar.MDCTopAppBar( this.el )
+                this.mdcEl = new Mdc.topAppBar.MDCTopAppBar( this.el )
 
                 this.mdcEl.listen( 'MDCTopAppBar:nav' , ( ) => {
 
-                    this.Events.trigger( 'MDCTopAppBar:nav' );
+                    this.Events.trigger( 'nav' );
 
                 } );
 
@@ -51,7 +57,7 @@ define(['backbone','underscore','jquery'],function(Backbone,_,$){
 
         }
 
-    })
+    },helperDirective))
 
     return {view:viewMDCTopAppBar,el:classIden};
 
