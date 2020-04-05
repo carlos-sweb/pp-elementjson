@@ -8,6 +8,7 @@ define([
     './dist/elementjson-materialui/directive/MDCDrawer.js',
     './dist/elementjson-materialui/directive/MDCFloatingLabel.js',
     './dist/elementjson-materialui/directive/MDCFormField.js',
+    './dist/elementjson-materialui/directive/MDCIconbutton.js',
     './dist/elementjson-materialui/directive/MDCLinearProgress.js',
     './dist/elementjson-materialui/directive/MDCList.js',
     './dist/elementjson-materialui/directive/MDCMenu.js',
@@ -40,6 +41,7 @@ define([
     MDCDrawer,
     MDCFloatingLabel,
     MDCFormField,
+    MDCIconButton,
     MDCLinearProgress,
     MDCList,
     MDCMenu,
@@ -78,6 +80,7 @@ const directives = {
     MDCDrawer:MDCDrawer,
     MDCFloatingLabel:MDCFloatingLabel,
     MDCFormField:MDCFormField,
+    MDCIconButton:MDCIconButton,
     MDCLinearProgress:MDCLinearProgress,
     MDCList:MDCList,
     MDCMenu:MDCMenu,
@@ -131,7 +134,19 @@ class __directive{
                 
                 if( els.length > 0 ){
 
-                   this.elInits.push( new view( { el : el , mdc :  this.mdc } ) );
+                    els.forEach((_els)=>{
+                        
+                        if( !(_els.getAttribute("id") == null)  ){
+
+                            this.elInits.push( 
+                                new view( { 
+                                    el : _els , 
+                                    mdc :  this.mdc 
+                                } ) 
+                            );
+
+                        }    
+                    });
 
                 }
 
@@ -143,10 +158,9 @@ class __directive{
 
             if( !_.isNull(elInit) ){
 
-                console.log(elInit.listenTo.length);
-
                 if( elInit.listenTo.length > 0 ){
                 if( _.isFunction( elInit.listenTo.forEach ) ){ 
+                   
                     elInit.listenTo.forEach((_listenTo)=>{
                         /**
                          * @const _name_function
@@ -211,11 +225,13 @@ class __directive{
      * @return { Backbone.View }
     */
     elInitsFind(id){
+
       return _.filter(this.elInits,(elInit)=>{
 
             return elInit.id == id;
 
       });
+      
     }
 
 }

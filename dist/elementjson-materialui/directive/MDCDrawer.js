@@ -24,6 +24,10 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( B
 
 
         },
+        /**
+         * @function initialize
+         * @description 
+         */
         initialize:function(options){
             
             this.getId()
@@ -41,6 +45,23 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( B
             this.render();
 
         },
+        /**
+         * @function change
+         * @description
+         */
+        change:function(){
+
+            if( !_.isNull( this.mdcEl ) ){
+
+                this.mdcEl.open = !this.mdcEl.open;
+
+            }
+
+        },
+        /**
+         * @function close
+         * @description
+         */
         close:function(){
             
             if( !_.isNull(this.mdcEl) ){
@@ -50,6 +71,10 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( B
             }
     
         },
+        /**
+         * @function open
+         * @description
+         */
         open:function(){
 
             
@@ -60,6 +85,13 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( B
             }
 
            
+
+        },
+        /**
+         * @function render
+         * @description
+         */
+        render:function(){
 
         }
         

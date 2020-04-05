@@ -1,5 +1,9 @@
 define([ 'backbone' , 'underscore' , 'jquery' ],function( Backbone , _ , $ ){
-    
+    /**
+     * @const classIden - clase de css que afectara a esta view
+     */
+    const classIden = '.mdc-button';
+
     const viewMDCButton = Backbone.View.extend({
         /**
          * @function initialize 
@@ -24,6 +28,6 @@ define([ 'backbone' , 'underscore' , 'jquery' ],function( Backbone , _ , $ ){
         }
     })
     
-    return {view:viewMDCButton,el:".mdc-button"};
+    return {view:viewMDCButton,el:classIden};
     
 });

@@ -19,8 +19,6 @@ requirejs.config({
 		"helper-router":"js-helper/helper-router",
 		"helper-directive":"js-helper/helper-directive",
 
-		
-
 		"config":"js/app-config",
 		"router":"js/app-router",
 
