@@ -133,7 +133,7 @@ class __directive{
                 const els = this.el.querySelectorAll(el)
                 
                 if( els.length > 0 ){
-
+                    //console.log(els);
                     els.forEach((_els)=>{
                         
                         if( !(_els.getAttribute("id") == null)  ){

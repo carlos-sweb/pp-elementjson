@@ -8,9 +8,20 @@ define(function(){
 const mdcButton  = {
     "o":[{
         "t":".bu",
-        "a":{
-            "class":"mdc-button <%=variant%>"
-        },
+        "a":[
+        "class@mdc-button <%=variant%>",
+        "<%if( !_.isNull( id ) ){%>id=\"<%=id%>\"<%}%>",
+        "<%if( !_.isNull( onclick ) ){%>onclick=\"<%=onclick%>\"<%}%>",
+        "<%if( !_.isNull( ondblclick ) ){%>ondblclick=\"<%=ondblclick%>\"<%}%>",
+        "<%if( !_.isNull( onmousedown ) ){%>onmousedown=\"<%=onmousedown%>\"<%}%>",
+        "<%if( !_.isNull( onmousemove ) ){%>onmousemove=\"<%=onmousemove%>\"<%}%>",
+        "<%if( !_.isNull( onmouseout ) ){%>onmouseout=\"<%=onmouseout%>\"<%}%>",
+        "<%if( !_.isNull( onmouseover ) ){%>onmouseover=\"<%=onmouseover%>\"<%}%>",
+        "<%if( !_.isNull( onmouseup ) ){%>onmouseup=\"<%=onmouseup%>\"<%}%>",
+        "<%if( !_.isNull( onwheel ) ){%>onwheel=\"<%=onwheel%>\"<%}%>",
+        "<%if( !_.isNull( onmouseenter ) ){%>onmouseenter=\"<%=onmouseenter%>\"<%}%>"
+        ],
+
         "c":[{
             "a":"class@mdc-button__ripple",
         },{
@@ -20,12 +31,29 @@ const mdcButton  = {
         }]
     }],
     "d":{
+        "id":null,
         "variant":"",
         "text":"",
+        "attr":"",
+        "_class":"",
+
+        "onclick":null,
+        "ondblclick":null,
+        "onmousedown":null,
+        "onmousemove":null,
+        "onmouseout":null,
+        "onmouseover":null,
+        "onmouseup":null,
+        "onwheel":null,
+        "onmouseenter":null
     }
 };
-
-var mdcButtonHelper = function(Btn,Variant){
+/**
+ * @function mdcButtonHelper
+ * @description
+ * @return {object}
+*/
+var mdcButtonHelper = function( Btn , Variant ){
 
     return { 
 
@@ -35,13 +63,24 @@ var mdcButtonHelper = function(Btn,Variant){
 
     }
 
-};
-
+}
 //mdc-button--outlined
+/**
+ * @const mdcButtonOutlined
+ * @description
+ */
 const mdcButtonOutlined  =  mdcButtonHelper(mdcButton,'outlined')
 //mdc-button--raised
+/**
+ * @const mdcButtonRaised
+ * @description
+ */
 const mdcButtonRaised  =  mdcButtonHelper(mdcButton,'raised')
 //mdc-button--unelevated
+/**
+ * @const mdcButtonUnelevated
+ * @description
+ */
 const mdcButtonUnelevated = mdcButtonHelper(mdcButton,'unelevated')
 // ----------------------------------------------------------------------------
 //FAB
@@ -89,7 +128,7 @@ const mdcButtonUnelevated = mdcButtonHelper(mdcButton,'unelevated')
                     "a":"class@mdc-list-item|href@#|tabindex@0",
                     "c":[
                         {"t":"i","a":"class@material-icons mdc-list-item__graphic|aria-hidden@true","bc":"drafts"},
-                        {"t":"span","a":"class@mdc-list-item__text","bc":"Drafts"}
+                        {"t":"span","a":"class@mdc-list-item__text","bc":"Base de Datos"}
                     ]
                 }]
             }]
@@ -243,7 +282,11 @@ const mdcButtonUnelevated = mdcButtonHelper(mdcButton,'unelevated')
     const components = {
         baseModal:baseModal,
         menu:menu,
-        mdcButton:mdcButton
+        // botones
+        mdcButton:mdcButton,
+        mdcButtonOutlined:mdcButtonOutlined,
+        mdcButtonRaised:mdcButtonRaised,
+        mdcButtonUnelevated:mdcButtonUnelevated
     };
 
 return components;

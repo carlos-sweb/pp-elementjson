@@ -35,8 +35,23 @@ const viewMain =  Backbone.View.extend({
      */
     render:function(){
 
+
+
+
+        const button =  ElementJS.getComponent(
+                'mdcButtonRaised',
+                {
+                    id:"mybotton",
+                    text:"hola",
+                    onmouseenter:"console.log('aaaaaaa')"
+                }
+            )
+
         // load html base for panel
-        this.$el.prepend(ElementJS.getComponent("baseModal",{title:"ElementJson.js"}));
+        //this.$el.prepend(ElementJS.getComponent("baseModal",{title:"ElementJson.js"}));
+
+
+        this.$el.prepend( button().render() );
         // 
         new directive({el:this.el,mdc:mdc});
 

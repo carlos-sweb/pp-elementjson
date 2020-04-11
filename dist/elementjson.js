@@ -76,11 +76,23 @@ elementjson.tag_noclose = function(tagname){
  * @returns {string} cadena con los attributos html formateados en su formato ejemplo: id="myid" name="myname"
  */
 elementjson.createAttr = function(attr){
+
 	var _attr = "";
-	if( _.isObject(attr) ){
+	// no es suficiente con preguntar si isObject preguntamos 
+	// si nes un objecto por la funcion nativa de una array
+	if( _.isObject(attr) && !_.isFunction(attr.forEach) ){
+
 		for( const _name in attr ){
 			_attr +=_name+"='"+attr[_name]+"' ";
-		};	
+		};
+	}else if( _.isArray(attr) && _.isFunction(attr.forEach) ){
+
+		attr.forEach((__attr)=>{
+
+			_attr += this.createAttr(__attr);
+
+		})	
+
 	}else if ( _.isString(attr) ){
 		const ArrayAttr = attr.split("|");
 	    for(const _iden in ArrayAttr){
@@ -93,7 +105,7 @@ elementjson.createAttr = function(attr){
 	    	
 	    };
 	};
-	return _attr === "" ? "":" "+_attr;
+	return _attr === "" ? "":" "+_attr.trim();
 }
 /**
  * @function create
@@ -192,27 +204,65 @@ elementjson.registerGroup = function(ListComponent){
  * @param {object} data - lista de la data a remplazar 
  */
 elementjson.getComponent = function( name , data , callback , manipulate ){
+
+
+	this.render = function(){
+			console.log(this);
+		return "<div>Hola a atodos</div>";
+		
+	}
 	 
 	 const components = this.Components.getComponents(name);
+
 	 let _object = {};
+	 
 	 let _data = {};
 
 	 if( _.isFunction(manipulate) ){
-		const _manipulate = manipulate(components); 
-		_object = _manipulate["o"];
-		_data      = _.isNull(data) ? _manipulate["d"] : _.extend(_manipulate["d"],data);
+
+		const _manipulate = manipulate(components)
+
+		_object = _manipulate["o"]
+
+		_data      = _.isNull(data) ? _manipulate["d"] : _.extend(_manipulate["d"],data)
+
 	 }else{
-		_object   = components["o"];
-		_data      = _.isNull(data) ? components["d"] : _.extend(components["d"],data);
-	 };
+
+		_object   = components["o"]
+
+		_data      = _.isNull(data) ? components["d"] : _.extend(components["d"],data)
+
+	 }
 	 
 
-	 const _template  = _.template(this.create(  _object ))( _data ) ; 
+	 const _template  = _.template(this.create(  _object ))( _data )
+
 	 if( _.isFunction(callback) ){
+		 
 		 const _callback = callback( _template ); 
-		 return _.isUndefined( _callback ) ? "" : _callback ;
+		 
+		 return ()=>{
+
+		 }
+         //_.isUndefined( _callback ) ? _template : _callback ;
+
 	 }else{
-		 return _template;
+
+		return ( ___attr ) => {
+			
+			console.log( ___attr );
+
+			return {
+				render:()=>{
+
+					return _.template(this.create(  _object ))( _data )
+
+				}
+			}
+		};
+
+		 //_template;
+
 	 };
 	 
 

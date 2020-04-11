@@ -9,6 +9,7 @@
   "author": "Carlos Illesca",
   "license": "ISC",
   "dependencies": {
+    "@openfonts/baloo-thambi-2_tamil": "0.0.1",
     "alpinejs": "^2.2.1",
     "animate.css": "^3.7.2",
     "backbone": "^1.4.0",
@@ -18,6 +19,8 @@
     "material-icons": "^0.3.1",
     "normalize.css": "^8.0.1",
     "requirejs": "^2.3.6",
+    "requirejs-plugins": "^1.0.2",
+    "text": "github:requirejs/text",
     "typeface-lato": "0.0.75",
     "zepto": "^1.2.0"
   },
