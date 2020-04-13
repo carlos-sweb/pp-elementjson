@@ -36,7 +36,7 @@ define(function(){
                         
                         if( _.isFunction( this[m[1]] ) ){
 
-                            this[m[1]]
+                            //this[m[1]]
                             
                             this._listenTo.push( [m[1],attrs[i].value] );
 

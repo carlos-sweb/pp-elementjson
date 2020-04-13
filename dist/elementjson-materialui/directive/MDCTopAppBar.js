@@ -31,6 +31,7 @@ define(['backbone','underscore','jquery','helper-directive'],function( Backbone 
 
                 this.mdcEl.listen( 'MDCTopAppBar:nav' , ( ) => {
 
+
                     this.trigger( 'nav' );
 
                 } );

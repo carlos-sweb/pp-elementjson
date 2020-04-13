@@ -5,16 +5,7 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( B
     const viewMDCList = Backbone.View.extend(_.extend({
         preinitialize:function(){
 
-                
-            this.Events = {};
-
-            _.extend( this.Events , Backbone.Events )
-
             this.mdcEl = null;
-
-            this.mdcEvents = [ ];
-
-            this.listenTo = []; 
 
         },
         initialize:function(options){
@@ -33,7 +24,7 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( B
 
             this.$el.find(".mdc-list-item").on("click",(event)=>{
              
-                this.Events.trigger('itemclick');
+                this.trigger('itemclick');
 
             });
 

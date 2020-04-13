@@ -162,6 +162,8 @@ class __directive{
     */
     run( options ){
 
+        console.log("Run ::::::");
+
         const El = options.el || null;
         
         const mdc = options.mdc || null;
@@ -196,8 +198,6 @@ class __directive{
                                 _els.setAttribute('data-ci-init','true');
                             }else{
 
-
-
                                 
                                 let position = this.elInitFindIndex( _els.getAttribute("id") )
 
@@ -214,7 +214,7 @@ class __directive{
                                     } ));
  
                                 }
-
+                                els.setAttribute('data-ci-init','true');
                                 console.warn("Element ID #"+_els.getAttribute("id")+" duplicate");
                                 
                             }
@@ -237,8 +237,6 @@ class __directive{
                 if( !(elInit.el.getAttribute('data-ci-listento') == 'ready') ){
 
                     elInit._listenTo.forEach((__listenTo)=>{
-
-                        console.log("aaaaaaaaaaa");
                         /**
                          * @const _name_function
                          * @type {string}
@@ -268,19 +266,29 @@ class __directive{
                          *@type {array}
                          *@description
                          */
-                        var elInitsFind = this.elInitsFind(view_connect_id)
+                        var elInitsFind = this.elInitsFind(view_connect_id);
+
+             
+
+
                         // ---------------------------------------------------------
                         if( elInitsFind.length == 1 ){
-                            
                             if( _.isFunction( elInit[_name_function] ) ){
 
-                                console.log( elInit  );
-
+                                console.log("-------------------------------");
+                                console.log("Connect to _> "+ view_connect_id );
+                                console.log("connect to events "+view_connect_event);
+                                console.log("-------------------------------");
+                                /*elInitsFind[0].on(view_connect_event,()=>{
+                                    console.log("YYAYYYA");
+                                });*/
+                                
                                 elInit.listenTo(
                                     elInitsFind[0],
                                     view_connect_event,
                                     elInit[_name_function].bind(elInit)
                                 )
+
 
                                 elInit.el.setAttribute('data-ci-listento','ready');
                                 
