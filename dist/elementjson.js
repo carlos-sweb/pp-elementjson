@@ -205,18 +205,21 @@ elementjson.registerGroup = function(ListComponent){
  */
 elementjson.getComponent = function( name , data , callback , manipulate ){
 
+	/*
+	*@const components
+	*@description 
+	*/		 
+	const components = this.Components.getComponents(name);
 
-	this.render = function(){
-			console.log(this);
-		return "<div>Hola a atodos</div>";
-		
-	}
-	 
-	 const components = this.Components.getComponents(name);
-
-	 let _object = {};
-	 
-	 let _data = {};
+	/*
+	*@let _object
+	*/
+	let _object = {};
+	/*
+	*@let _data
+	*
+	*/ 
+	let _data = {};
 
 	 if( _.isFunction(manipulate) ){
 
@@ -249,21 +252,74 @@ elementjson.getComponent = function( name , data , callback , manipulate ){
 	 }else{
 
 		return ( ___attr ) => {
-			
-			console.log( ___attr );
+
 
 			return {
 				render:()=>{
+
+					let __object = _.first(_object);
+
+						let n___attr = __object.a || _object.attr || "";
+
+						/**/
+						if( _.isString(n___attr) ){
+							console.log("Es cadena");
+							console.log(n___attr);
+						}
+
+						if( _.isObject(n___attr) && !_.isFunction(n___attr.forEach) ){
+							console.log("Es object");
+							console.log(n___attr);
+						}
+						//  El objecto principal es un array -START
+						if( _.isArray(n___attr) && _.isFunction(n___attr.forEach) ){
+
+							if( _.isString(___attr) ){
+
+								n___attr = n___attr.concat([___attr]);
+
+							}
+
+							if( _.isObject(___attr) && !_.isFunction( ___attr.forEach ) ){
+									
+									n___attr = n___attr.concat([___attr]);
+													
+							}
+
+							if( _.isArray(___attr) && _.isFunction( ___attr.forEach ) ){
+
+									n___attr = n___attr.concat(___attr);
+
+							}
+							
+						}
+						//  El objecto principal es un array - END
+
+						if(  _.has( _object[0],'a' )  ){
+
+							console.log("Aqui lo agrega");
+
+							_object[0].a = n___attr;
+
+						}
+
+						if(  _.has( _object[0],'attr' )  ){
+
+							_object[0].attr = n___attr;
+
+						}
+
 
 					return _.template(this.create(  _object ))( _data )
 
 				}
 			}
+			// render
 		};
 
 		 //_template;
 
-	 };
+	 };// funtion
 	 
 
 };

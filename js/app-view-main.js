@@ -18,7 +18,10 @@ const viewMain =  Backbone.View.extend({
      */
     preinitialize:function(){
 
+        this.directive = null
+
         this.viewContent = viewContent;
+
 
     },
     /**
@@ -35,29 +38,21 @@ const viewMain =  Backbone.View.extend({
      */
     render:function(){
 
-
-
-
-        const button =  ElementJS.getComponent(
-                'mdcButtonRaised',
-                {
-                    id:"mybotton",
-                    text:"hola",
-                    onmouseenter:"console.log('aaaaaaa')"
-                }
-            )
-
         // load html base for panel
-        //this.$el.prepend(ElementJS.getComponent("baseModal",{title:"ElementJson.js"}));
+        this.$el.prepend(
+            ElementJS.getComponent("baseModal",
+                {
+                    title:"ElementJson.js"
+                })().render()
+        );
 
-
-        this.$el.prepend( button().render() );
-        // 
-        new directive({el:this.el,mdc:mdc});
+        this.directive = new directive({el:this.el,mdc:mdc});
 
     },
     renderViewContent:function(){
-        new this.viewContent({el:"#view-content"});
+
+            console.log("Corriendo el contenido");
+
     }
     
 });

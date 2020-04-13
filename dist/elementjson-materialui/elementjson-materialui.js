@@ -1,5 +1,19 @@
 define(function(){
 // ----------------------------------------------------------------------------
+
+const mouseevent = [
+		"<%if( !_.isNull( id ) ){%>id=\"<%=id%>\"<%}%>",
+        "<%if( !_.isNull( onclick ) ){%>onclick=\"<%=onclick%>\"<%}%>",
+        "<%if( !_.isNull( ondblclick ) ){%>ondblclick=\"<%=ondblclick%>\"<%}%>",
+        "<%if( !_.isNull( onmousedown ) ){%>onmousedown=\"<%=onmousedown%>\"<%}%>",
+        "<%if( !_.isNull( onmousemove ) ){%>onmousemove=\"<%=onmousemove%>\"<%}%>",
+        "<%if( !_.isNull( onmouseout ) ){%>onmouseout=\"<%=onmouseout%>\"<%}%>",
+        "<%if( !_.isNull( onmouseover ) ){%>onmouseover=\"<%=onmouseover%>\"<%}%>",
+        "<%if( !_.isNull( onmouseup ) ){%>onmouseup=\"<%=onmouseup%>\"<%}%>",
+        "<%if( !_.isNull( onwheel ) ){%>onwheel=\"<%=onwheel%>\"<%}%>",
+        "<%if( !_.isNull( onmouseenter ) ){%>onmouseenter=\"<%=onmouseenter%>\"<%}%>"
+];
+
 //BUTTON 
 /**
  * @const mdcButton
@@ -10,17 +24,7 @@ const mdcButton  = {
         "t":".bu",
         "a":[
         "class@mdc-button <%=variant%>",
-        "<%if( !_.isNull( id ) ){%>id=\"<%=id%>\"<%}%>",
-        "<%if( !_.isNull( onclick ) ){%>onclick=\"<%=onclick%>\"<%}%>",
-        "<%if( !_.isNull( ondblclick ) ){%>ondblclick=\"<%=ondblclick%>\"<%}%>",
-        "<%if( !_.isNull( onmousedown ) ){%>onmousedown=\"<%=onmousedown%>\"<%}%>",
-        "<%if( !_.isNull( onmousemove ) ){%>onmousemove=\"<%=onmousemove%>\"<%}%>",
-        "<%if( !_.isNull( onmouseout ) ){%>onmouseout=\"<%=onmouseout%>\"<%}%>",
-        "<%if( !_.isNull( onmouseover ) ){%>onmouseover=\"<%=onmouseover%>\"<%}%>",
-        "<%if( !_.isNull( onmouseup ) ){%>onmouseup=\"<%=onmouseup%>\"<%}%>",
-        "<%if( !_.isNull( onwheel ) ){%>onwheel=\"<%=onwheel%>\"<%}%>",
-        "<%if( !_.isNull( onmouseenter ) ){%>onmouseenter=\"<%=onmouseenter%>\"<%}%>"
-        ],
+        ...mouseevent],
 
         "c":[{
             "a":"class@mdc-button__ripple",
@@ -35,19 +39,11 @@ const mdcButton  = {
         "variant":"",
         "text":"",
         "attr":"",
-        "_class":"",
-
-        "onclick":null,
-        "ondblclick":null,
-        "onmousedown":null,
-        "onmousemove":null,
-        "onmouseout":null,
-        "onmouseover":null,
-        "onmouseup":null,
-        "onwheel":null,
-        "onmouseenter":null
+        "_class":""
+        
     }
 };
+
 /**
  * @function mdcButtonHelper
  * @description

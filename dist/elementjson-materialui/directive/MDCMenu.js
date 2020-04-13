@@ -8,17 +8,8 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( B
          * @description 
          */
         preinitialize:function(){
-            
-            
-            this.Events = {};
-
-            _.extend( this.Events , Backbone.Events )
 
             this.mdcEl = null;
-
-            this.mdcEvents = [ ];
-
-            this.listenTo = []; 
 
         },
         initialize:function(options){

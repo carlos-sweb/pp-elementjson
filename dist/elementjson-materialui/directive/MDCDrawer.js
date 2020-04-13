@@ -1,4 +1,5 @@
 define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( Backbone , _ , $ , helperDirective ){
+
     /**
      * @const classIden - clase de css que afectara a esta view
      */
@@ -12,16 +13,7 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( B
          */
         preinitialize:function(){
 
-            this.Events = {};
-
-            _.extend(this.Events, Backbone.Events);
-
             this.mdcEl = null;
-
-            this.mdcEvents = [  ];
-
-            this.listenTo = [ ];
-
 
         },
         /**
@@ -66,7 +58,11 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( B
             
             if( !_.isNull(this.mdcEl) ){
 
-                this.mdcEl.open = false;
+                if( this.mdcEl.open ){
+
+                    this.mdcEl.open = false;
+
+                }
 
             }
     
@@ -76,12 +72,17 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( B
          * @description
          */
         open:function(){
-
             
             if( !_.isNull(this.mdcEl) ){
 
-                this.mdcEl.open = true;
+                if( typeof this.mdcEl.open != "undefined" ){
 
+                    if( !this.mdcEl.open  ){
+
+                        this.mdcEl.open = true;
+                    }
+                }
+                
             }
 
            

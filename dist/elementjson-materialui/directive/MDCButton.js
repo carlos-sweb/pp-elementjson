@@ -1,18 +1,37 @@
-define([ 'backbone' , 'underscore' , 'jquery' ],function( Backbone , _ , $ ){
+define([
+    'backbone' , 'underscore' , 'jquery' ,'helper-directive'],
+    function( Backbone , _ , $ , helperDirective ){
     /**
      * @const classIden - clase de css que afectara a esta view
      */
     const classIden = '.mdc-button';
 
-    const viewMDCButton = Backbone.View.extend({
+    const viewMDCButton =Backbone.View.extend(_.extend({
+            /**
+         * @function preinitialize
+         * pre-initializando variables 
+         * antes de usar
+         */
+        preinitialize:function(){
+
+            this.listenTo = [];
+
+            this.mdcEl = null;
+
+        },
         /**
          * @function initialize 
          */
         initialize:function(options){
+
+            this.getId()
+           
+            this.getListenTo();
             
             const Mdc = options.mdc || null;
 
             if( !_.isNull(Mdc) ){
+
 
                 this.elMdc = new Mdc.ripple.MDCRipple( this.el );
                 
@@ -77,13 +96,27 @@ define([ 'backbone' , 'underscore' , 'jquery' ],function( Backbone , _ , $ ){
 
 
         },
+        prueba:function(){
+
+
+            this.el.classList.remove('mdc-button--raised');
+            this.el.classList.add('mdc-button--outlined');
+            console.log("Hola desde Prueba");
+            console.log(this.el);
+        },
         /**
          * @function render
          */
         render:function(){
+
+            this.el.addEventListener("click",()=>{
+
+                console.log("aaaa");
+
+            });
             
         }
-    })
+    },helperDirective))
     
     return {view:viewMDCButton,el:classIden};
     

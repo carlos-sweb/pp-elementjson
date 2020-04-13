@@ -1,5 +1,7 @@
 define(function(){
-    const helperDirecticve =  {       
+    const helperDirecticve =  {    
+
+        _listenTo:[],   
         /**
          * @function getId
          * @description - esta Funcion captura el id del elemento
@@ -36,7 +38,7 @@ define(function(){
 
                             this[m[1]]
                             
-                            this.listenTo.push( [m[1],attrs[i].value] );
+                            this._listenTo.push( [m[1],attrs[i].value] );
 
                         }
                        

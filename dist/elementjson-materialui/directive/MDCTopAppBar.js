@@ -10,15 +10,7 @@ define(['backbone','underscore','jquery','helper-directive'],function( Backbone 
          */
         preinitialize:function(){
 
-            this.Events = {};
-
-            _.extend( this.Events , Backbone.Events )
-
             this.mdcEl = null;
-
-            this.mdcEvents = [ "nav" ];
-
-            this.listenTo = []; 
 
         },
         /**
@@ -39,7 +31,7 @@ define(['backbone','underscore','jquery','helper-directive'],function( Backbone 
 
                 this.mdcEl.listen( 'MDCTopAppBar:nav' , ( ) => {
 
-                    this.Events.trigger( 'nav' );
+                    this.trigger( 'nav' );
 
                 } );
 

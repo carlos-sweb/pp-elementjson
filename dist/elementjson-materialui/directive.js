@@ -29,8 +29,7 @@ define([
     './dist/elementjson-materialui/directive/MDCTextFieldCharacterCounter.js',
     './dist/elementjson-materialui/directive/MDCTextFieldHelperText.js',
     './dist/elementjson-materialui/directive/MDCTextFieldIcon.js',
-    './dist/elementjson-materialui/directive/MDCTopAppBar.js',
-    './dist/elementjson-materialui/EventEmitter.js'
+    './dist/elementjson-materialui/directive/MDCTopAppBar.js'
 ],function(
     MDCButton,
     MDCCards,
@@ -62,8 +61,7 @@ define([
     MDCTextFieldCharacterCounter,
     MDCTextFieldHelperText,
     MDCTextFieldIcon,
-    MDCTopAppBar,
-    EventEmitter
+    MDCTopAppBar
 ){
 /**
  * @constant
@@ -113,16 +111,62 @@ class __directive{
      * @constructor
     */
     constructor(options){
-        
-        this.el = options.el || null;
-        
-        this.mdc = options.mdc || null;
-        
-        this.EventEmitter = new EventEmitter();
+
+        this.directives = directives;
         
         this.elInits = [];
         
-        Object.entries(directives).forEach(function([key,value]){
+        if( typeof options != 'undefined' || typeof options != 'null' ){
+            this.run(options);
+        };
+
+    }
+    /**
+     * @function elInitsFind
+     * @param id { string } - Id de la view que se desea buscar
+     * @return { Backbone.View }
+    */
+    elInitsFind( id ){
+
+      return this.elInits.filter( (elInit) => elInit.id == id  );
+      
+    }
+    /**
+    * @function elInitFindIndex
+    * @param id { string } - Id de la view que se desea buscar
+    * @return { number } 
+    */
+    elInitFindIndex( id ){
+
+        let position = null; 
+
+        for( var i = 0; i < this.elInits.length; i++ ){
+
+            if( this.elInits[i].id == id ){
+
+                position = i;
+
+                break;
+            }
+
+        }
+
+        return position;
+        
+
+    }
+    /**
+    * @function run
+    * @param options { object } - 
+    * @return 
+    */
+    run( options ){
+
+        const El = options.el || null;
+        
+        const mdc = options.mdc || null;
+        
+        Object.entries(this.directives).forEach(function([key,value]){            
             
             if( typeof value.el != "undefined" ){
                 
@@ -130,20 +174,51 @@ class __directive{
                 
                 const view = value.view;
                 
-                const els = this.el.querySelectorAll(el)
-                
+                const els = El.querySelectorAll( el )
+
                 if( els.length > 0 ){
-                    //console.log(els);
+
                     els.forEach((_els)=>{
                         
-                        if( !(_els.getAttribute("id") == null)  ){
+                        if( !(_els.getAttribute("id") == null) && !(_els.getAttribute("data-ci-init") == "true" )  ){
 
-                            this.elInits.push( 
-                                new view( { 
-                                    el : _els , 
-                                    mdc :  this.mdc 
-                                } ) 
-                            );
+                            var existsId = this.elInitsFind(_els.getAttribute("id"));
+                            // Se verifica que no este repetido el ID del
+                            // Elemento
+                            if( existsId == 0 ){ 
+
+                                this.elInits.push( 
+                                    new view( { 
+                                        el : _els , 
+                                        mdc :  mdc 
+                                    } ) 
+                                );
+                                _els.setAttribute('data-ci-init','true');
+                            }else{
+
+
+
+                                
+                                let position = this.elInitFindIndex( _els.getAttribute("id") )
+
+                                if( !( position == null  ) ){
+
+                                    this.elInits[position].off();
+                                    this.elInits[position].stopListening();
+                                    this.elInits[ position ] = null;
+                                    this.elInits.splice( position , 1 );
+
+                                    this.elInits.push(new view( { 
+                                        el : _els , 
+                                        mdc :  mdc 
+                                    } ));
+ 
+                                }
+
+                                console.warn("Element ID #"+_els.getAttribute("id")+" duplicate");
+                                
+                            }
+                            
 
                         }    
                     });
@@ -157,23 +232,25 @@ class __directive{
         this.elInits.forEach((elInit)=>{
 
             if( !_.isNull(elInit) ){
+                if( elInit._listenTo.length > 0 ){
+                if( _.isFunction( elInit._listenTo.forEach ) ){     
+                if( !(elInit.el.getAttribute('data-ci-listento') == 'ready') ){
 
-                if( elInit.listenTo.length > 0 ){
-                if( _.isFunction( elInit.listenTo.forEach ) ){ 
-                   
-                    elInit.listenTo.forEach((_listenTo)=>{
+                    elInit._listenTo.forEach((__listenTo)=>{
+
+                        console.log("aaaaaaaaaaa");
                         /**
                          * @const _name_function
                          * @type {string}
                          * @description 
                          */
-                        const _name_function = _listenTo[0];
+                        const _name_function = __listenTo[0];
                         /**
                          * @const view_connect
                          * @type {string}
                          * @description
                          */
-                        const view_connect =  _listenTo[1].split(":");
+                        const view_connect =  __listenTo[1].split(":");
                         /**
                          * @const view_connect_id
                          * @type {string}
@@ -197,19 +274,22 @@ class __directive{
                             
                             if( _.isFunction( elInit[_name_function] ) ){
 
-                                elInitsFind[0].Events.on(
+                                console.log( elInit  );
 
+                                elInit.listenTo(
+                                    elInitsFind[0],
                                     view_connect_event,
-    
                                     elInit[_name_function].bind(elInit)
-    
                                 )
+
+                                elInit.el.setAttribute('data-ci-listento','ready');
                                 
                             }
 
                         }
                         // ---------------------------------------------------------
                     })
+                }    
                 }    
                 }
 
@@ -218,20 +298,6 @@ class __directive{
         })
         // -------------------------------------------------------------------------------
 
-    }
-    /**
-     * @function elInitsFind
-     * @param id { string } - Id de la view que se desea buscar
-     * @return { Backbone.View }
-    */
-    elInitsFind(id){
-
-      return _.filter(this.elInits,(elInit)=>{
-
-            return elInit.id == id;
-
-      });
-      
     }
 
 }
