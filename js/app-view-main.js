@@ -53,6 +53,10 @@ const viewMain =  Backbone.View.extend({
 
             console.log("Corriendo el contenido");
 
+            new this.viewContent({el:"#view-content"})
+
+            this.directive.run({el: this.el.querySelector("#view-content") ,mdc:mdc});
+
     }
     
 });
