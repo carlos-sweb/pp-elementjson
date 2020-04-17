@@ -5,21 +5,14 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( b
     const viewMDCIconbutton = Backbone.View.extend(_.extend({
         preinitialize:function(){
 
-            this.Events = {};
-
-            _.extend( this.Events , Backbone.Events )
-
             this.mdcEl = null;
 
-            this.mdcEvents = [  ];
-
-            this.listenTo = [ ]; 
         },
         initialize:function(options){
 
-            this.getId()
+            this.id = this.getId( this.el )
            
-            this.getListenTo();
+            this._listenTo =  this.getListenTo( this.el )
             
             const Mdc = options.mdc || null;
 
@@ -34,7 +27,7 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( b
 
             this.$el.on( "click" ,( event )=>{
 
-                this.Events.trigger( "click" , event );
+                this.trigger( "click" , event );
 
             });
            
@@ -45,7 +38,7 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( b
         render:function(){
 
         }
-    },helperDirective));
+    }, helperDirective ));
 
 
     return {view:viewMDCIconbutton,el:classIden}

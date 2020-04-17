@@ -21,10 +21,11 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( B
          * @description 
          */
         initialize:function(options){
-            
-            this.getId()
+
+            this.id = this.getId(this.el);
+
+            this._listenTo = this.getListenTo(this.el);
            
-            this.getListenTo();
 
             const Mdc = options.mdc || null;     
 
@@ -33,6 +34,9 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( B
                 this.mdcEl = Mdc.drawer.MDCDrawer.attachTo(this.el);
 
             }
+                        
+        
+
            
             this.render();
 
@@ -96,7 +100,7 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( B
 
         }
         
-    },helperDirective))
+    }, helperDirective ))
 
     return {view:viewMDCDrawer,el:classIden};
 

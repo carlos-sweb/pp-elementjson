@@ -10,9 +10,9 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( B
         },
         initialize:function(options){
 
-            this.getId()
+            this.id = this.getId( this.el )
 
-            this.getListenTo();
+            this._listenTo = this.getListenTo( this.el )
             
             const Mdc = options.mdc || null;
 
@@ -35,7 +35,7 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( B
         render:function(){
 
         }
-    },helperDirective))
+  }, helperDirective ))
 
 
     return {view:viewMDCList,el:classIden};

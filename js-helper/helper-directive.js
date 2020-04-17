@@ -1,5 +1,5 @@
 define(function(){
-    const helperDirecticve =  {    
+    const helperDirective =  {    
 
         _listenTo:[],   
         /**
@@ -7,9 +7,9 @@ define(function(){
          * @description - esta Funcion captura el id del elemento
          * para poder ser enlazado posteriormente
          */
-        getId:function(){
+        getId:function( elem ){
             
-            this.id = this.el.hasAttribute('id') ? this.el.getAttribute('id') : null;
+            return elem.getAttribute('id') || null;
              
         },
         // ----------------------------------------------------------------------------------
@@ -17,14 +17,16 @@ define(function(){
          * @function getListenTo
          * @description - consigue identificar los eventos que va escuchar desde otros iden
          */
-        getListenTo:function(){
+        getListenTo:function(elem){
 
-            if(  this.el.hasAttributes()  ){
+            let _listenTo = [];
+
+            if( typeof elem != "undefined" ){
+            if(  elem.hasAttributes()  ){
                
-                const attrs = this.el.attributes;
+                const attrs = elem.attributes;
                
                 for(var i = attrs.length - 1; i >= 0; i--) {
-
 
                     const regex = /^ci-listento\.([a-zA-Z]{0,})$/;
 
@@ -34,26 +36,29 @@ define(function(){
                     
                     if ((m = regex.exec(str)) !== null) {
                         
-                        if( _.isFunction( this[m[1]] ) ){
+                        //if( _.isFunction( this[m[1]] ) ){
 
-                            //this[m[1]]
                             
-                            this._listenTo.push( [m[1],attrs[i].value] );
+                            _listenTo.push( [m[1],attrs[i].value] );
 
-                        }
+                        //}
                        
 
                     }
 
                 }
-               
-
+            }       
             }
+
+            return _listenTo;
+
+        
 
         }
         // ----------------------------------------------------------------------------------
 
     }
 
-    return helperDirecticve;
+    return helperDirective;
+
 });

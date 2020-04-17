@@ -168,7 +168,9 @@ class __directive{
         
         const mdc = options.mdc || null;
         
-        Object.entries(this.directives).forEach(function([key,value]){            
+        Object.entries(this.directives).forEach(function([key,value]){   
+
+
             
             if( typeof value.el != "undefined" ){
                 
@@ -228,10 +230,17 @@ class __directive{
             }
 
         }.bind(this));
-        // -------------------------------------------------------------------------------
+        // -------------------------------------------------------------------------------        
+
+
+
         this.elInits.forEach((elInit)=>{
 
+            console.log( elInit );
+            console.log( elInit._listenTo );
+
             if( !_.isNull(elInit) ){
+                if( typeof elInit._listenTo != "undefined" ){
                 if( elInit._listenTo.length > 0 ){
                 if( _.isFunction( elInit._listenTo.forEach ) ){     
                 if( !(elInit.el.getAttribute('data-ci-listento') == 'ready') ){
@@ -268,20 +277,12 @@ class __directive{
                          */
                         var elInitsFind = this.elInitsFind(view_connect_id);
 
-             
-
-
                         // ---------------------------------------------------------
                         if( elInitsFind.length == 1 ){
-                            if( _.isFunction( elInit[_name_function] ) ){
+                            if( _.isFunction( elInit[_name_function] ) ){                           
 
-                                console.log("-------------------------------");
-                                console.log("Connect to _> "+ view_connect_id );
-                                console.log("connect to events "+view_connect_event);
-                                console.log("-------------------------------");
-                                /*elInitsFind[0].on(view_connect_event,()=>{
-                                    console.log("YYAYYYA");
-                                });*/
+
+                                // Aqui -----------------------
                                 
                                 elInit.listenTo(
                                     elInitsFind[0],
@@ -297,8 +298,10 @@ class __directive{
                         }
                         // ---------------------------------------------------------
                     })
+                    console.log("----------------------------------------------");
                 }    
                 }    
+                }
                 }
 
             }

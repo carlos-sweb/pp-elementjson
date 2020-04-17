@@ -1,5 +1,10 @@
 define(['backbone','underscore','jquery','helper-directive'],function( Backbone , _ , $ , helperDirective ){
     
+    /*
+    *@const classIden
+    *@description - clase css que debe ser tratada y manipulada 
+    * por esta View
+    */
     const classIden = '.mdc-top-app-bar';
 
     const viewMDCTopAppBar = Backbone.View.extend(_.extend({
@@ -18,11 +23,18 @@ define(['backbone','underscore','jquery','helper-directive'],function( Backbone 
          * cuando se inicialize la vista
          */
         initialize:function(options){
-
-            this.getId()
-           
-            this.getListenTo();
+            /*
+            *@var this.id
+            *@description - id obtenido de attributo 
+            * del dom id
+            */
+            this.id = this.getId(this.el)
             
+            this._listent =  this.getListenTo(this.el);
+            /*
+            *@const Mdc
+            *@description - Material IO 
+            */
             const Mdc = options.mdc || null;
 
             if( !_.isNull(this.mdc) ){
@@ -50,7 +62,7 @@ define(['backbone','underscore','jquery','helper-directive'],function( Backbone 
 
         }
 
-    },helperDirective))
+    }, helperDirective  ))
 
     return {view:viewMDCTopAppBar,el:classIden};
 

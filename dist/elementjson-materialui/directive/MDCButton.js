@@ -14,8 +14,6 @@ define([
          */
         preinitialize:function(){
 
-            this.listenTo = [];
-
             this.mdcEl = null;
 
         },
@@ -24,9 +22,9 @@ define([
          */
         initialize:function(options){
 
-            this.getId()
+            this.id = this.getId( this.el )
            
-            this.getListenTo();
+            this._listenTo =  this.getListenTo( this.el )
             
             const Mdc = options.mdc || null;
 
