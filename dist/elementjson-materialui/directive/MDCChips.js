@@ -18,7 +18,7 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( b
 
             if( !_.isNull(Mdc) ){    
 
-                    this.mdcEl = new Mdc.chips.MDCChipSet( this.el )                
+                this.mdcEl = new Mdc.chips.MDCChipSet( this.el )                
             }
            
             this.render();

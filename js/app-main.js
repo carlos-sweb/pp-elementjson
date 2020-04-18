@@ -14,7 +14,7 @@ requirejs.config({
 
 		"ElementJS":"dist/elementjson",
 		"elementjson-materialui":"dist/elementjson-materialui/elementjson-materialui",
-		"directive":"dist/elementjson-materialui/directive",
+		"directive":"dist/directives",
 
 		"helper-router":"js-helper/helper-router",
 		"helper-directive":"js-helper/helper-directive",

@@ -18,9 +18,7 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( b
 
             if( !_.isNull(Mdc) ){  
 
-            //console.log(Mdc.dataTable.MDCDataTable);  
-
-                    this.mdcEl = new Mdc.dataTable.MDCDataTable( this.el )                
+                this.mdcEl = new Mdc.dataTable.MDCDataTable( this.el )                
             }
            
             this.render();
