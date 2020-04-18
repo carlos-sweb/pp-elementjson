@@ -22,18 +22,19 @@ define([ 'backbone' , 'underscore' , 'jquery' , 'helper-directive' ],function( b
 
                     this.mdcEl = new Mdc.ripple.MDCRipple( this.el )
 
+                    this.mdcEl.unbounded = true;
+
                 }
             }
 
             this.$el.on( "click" ,( event )=>{
 
-                this.trigger( "click" , event );
+                this.trigger( "click" , event );      
 
             });
            
             this.render();
-
-
+            
         },
         render:function(){
 

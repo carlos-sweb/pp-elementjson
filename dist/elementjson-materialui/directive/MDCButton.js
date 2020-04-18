@@ -35,6 +35,10 @@ define([
                 
             };
 
+            this.el.addEventListener('click',()=>{
+                this.trigger("click")
+            });
+
             /*Son las primeras pruebas de reactividad*/
             const acceptEvent = [
                 'click',

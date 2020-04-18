@@ -6,6 +6,7 @@ define([
     './dist/elementjson-materialui/directive/MDCDataTable.js',
     './dist/elementjson-materialui/directive/MDCDialog.js',
     './dist/elementjson-materialui/directive/MDCDrawer.js',
+    './dist/elementjson-materialui/directive/MDCFloatingActionButton.js',
     './dist/elementjson-materialui/directive/MDCFloatingLabel.js',
     './dist/elementjson-materialui/directive/MDCFormField.js',
     './dist/elementjson-materialui/directive/MDCIconbutton.js',
@@ -38,6 +39,7 @@ define([
     MDCDataTable,
     MDCDialog,
     MDCDrawer,
+    MDCFloatingActionButton,
     MDCFloatingLabel,
     MDCFormField,
     MDCIconButton,
@@ -76,6 +78,7 @@ const directives = {
     MDCDataTable:MDCDataTable,
     MDCDialog:MDCDialog,
     MDCDrawer:MDCDrawer,
+    MDCFloatingActionButton:MDCFloatingActionButton,
     MDCFloatingLabel:MDCFloatingLabel,
     MDCFormField:MDCFormField,
     MDCIconButton:MDCIconButton,
@@ -162,7 +165,7 @@ class __directive{
     */
     run( options ){
 
-        console.log("Run ::::::");
+        //console.log("Run ::::::");
 
         const El = options.el || null;
         
@@ -236,8 +239,8 @@ class __directive{
 
         this.elInits.forEach((elInit)=>{
 
-            console.log( elInit );
-            console.log( elInit._listenTo );
+            //console.log( elInit );
+            //console.log( elInit._listenTo );
 
             if( !_.isNull(elInit) ){
                 if( typeof elInit._listenTo != "undefined" ){
@@ -298,7 +301,7 @@ class __directive{
                         }
                         // ---------------------------------------------------------
                     })
-                    console.log("----------------------------------------------");
+                    //console.log("----------------------------------------------");
                 }    
                 }    
                 }
