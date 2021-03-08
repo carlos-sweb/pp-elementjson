@@ -23,10 +23,30 @@
 
 
 	return function(preOptions){
+
 		var preOptions = preOptions || {};
 		
 		return function( options ){
-			
+
+			this.html = "";
+
+			this.defaultTag = "div";			
+
+			//--------------------------------------------------------
+			this.load = function( htmljson ){
+
+				if(htmljson.hasOwnProperty("length") && typeof htmljson.forEach == "function"){
+
+					console.log("Es un puto array");
+
+				}else{
+
+					console.log("Es un puto Json");					
+
+				}
+			}
+			//--------------------------------------------------------
+
 		}
 
 
