@@ -6,7 +6,7 @@ var elem = new ElementJs({
 });
 
 
-var ppElem = new elem({});
+var ppElem = new elem();
 
 
 ppElem.load({
@@ -16,6 +16,9 @@ ppElem.load({
 		class:"navbar"
 	}
 });
+
+
+console.log( ppElem.render() );
 
 
 
