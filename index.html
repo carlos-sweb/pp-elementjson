@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pp-elementjs</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col" id="content">
+                    <h1>hello</h1>
+            </div>
+            <div class="col">
+                <pre id="contentHTml" ></pre>
+            </div>
+        </div>
+    </div>
+    
+    
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/voca/1.4.0/voca.min.js" ></script>
+<script type="text/javascript" src="ElementJs.js" ></script>
+<script type="text/javascript">
+
+    
+var elem = new ElementJs({});
+
+
+var ppElem = new elem();
+
+
+ppElem.setPretty(true);
+
+ppElem.load([{
+	tag:"div",
+	attr:{
+		id:"my-navbar",
+		class:"navbar"
+	}	
+},{	
+	attr:{
+		id:"otro",
+		class:"section container-full",		
+	},
+	children:[{
+			tag:"h1",
+			attr:{
+				id:"title",
+				class:"otromas"
+			},
+			beforeContent: "Hola a todos ",
+			afterContent:"Amigos mios"
+		},{
+            tag:"button",
+            attr:{
+                class:"btn btn-primary",
+                beforeContent:"ClickMe"
+            }
+        }]		
+}]);
+//console.log( ppElem.tags );
+document.getElementById("contentHTml").innerHTML = v.escapeHtml( ppElem.render() );
+document.getElementById("content").innerHTML =  ppElem.render() ;
+</script>
+
+</body>
+</html>

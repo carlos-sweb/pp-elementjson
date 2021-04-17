@@ -27,9 +27,12 @@ ppElem.load([{
 			attr:{
 				id:"title-uno",
 				class:"otromas"
-			}
+			},
+			beforeContent: "Hola a todos ",
+			afterContent:"Amigos mios"
 		}]		
 }]);
 
 //console.log( ppElem.tags );
+
 console.log( ppElem.render() );

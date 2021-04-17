@@ -21,123 +21,19 @@
 
 })( this,(function() {
 
-
 	return function(preOptions){
 
-		var preOptions = preOptions || {};		
-
-		function tagOpt	(category){
-			return {
-				'category':category
-			}
-		}
-
-		function isFunction(func) {
-				return func && {}.toString.call(func) === '[object Function]';
-		}
-
-		function has( obj , property ){
-			if( obj == null || obj == undefined || obj == true || obj == false ){ return false; }
-			return obj.hasOwnProperty( property );
-		}
-
-		var tagsNonClose = ['area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'];
-
-		var isTagClose = function( tag ){
-
-			return tagsNonClose.includes(tag);
-
-		}
-		
-		var getTag = function( obj , defaultTag){
-
-		    return has( obj , 'tag' ) ? obj['tag'] : defaultTag;
-		}
-
-		var getBase = function( tag ){
-
-			return isTagClose(tag) ? "<$tag $attributes/>":"<$tag $attributes>$childrens</$tag>";
-
-		}
-
-		var getAttr = function( obj ){
-
-			return has( obj ,'attr') ?  obj ['attr'] : {};
-
-		}
-
-		var getChildren = function( obj ){
-
-			return has( obj ,'children') ?  obj ['children'] : null;
-
-		}
-
-		var replace = function( base , tag , stringAttr , childrens , defaultTag ,pretty ){
-
-			_base = base.replace("<$tag","<"+tag).replace("</$tag","</"+tag).replace("$attributes",stringAttr);
-
-			if( childrens == null ){ _base = _base.replace("$childrens","") }
-
-			if( childrens != null ){ 				
-				var _childrens = render( childrens , defaultTag , pretty );
-
-			}
-
-			return _base ;
-		}
-
-		var attrToString = function( attr ){
-
-
-			var stringAttr = '';
-
-			keys = Object.keys( attr );
-			
-			for( var i = 0; i <  keys.length; i++ ){
-
-				stringAttr += keys[i]+"=\""+attr[keys[i]]+" ";					
-
-			}
-
-			return stringAttr;
-
-		}
-
-		var render = function( htmljson , defaultTag , pretty ){
-			
-			// revisamos que sea un array
-			htmljson = ( isFunction(htmljson.forEach) && has(htmljson,'length') ) ? htmljson : [htmljson];
-			// variable de texto que va de salida
-			var output = "";				
-			// construimos elemento por elemento
-			htmljson.forEach(function( elemDom ){
-				// definos el tag 
-				var tag  = getTag(elemDom,defaultTag),
-				// definimos si el tag es cerrado o abierto
-				base = getBase(tag),
-				// verificamos que vengan los attributos
-				attr = getAttr(elemDom),
-				// verificamos 	que vengan hijos para el documento 
-				childrens = getChildren( elemDom ),
-				// la cadena para stringAttr
-				stringAttr = attrToString( attr );
-
-				output += base.replace("<$tag","<"+tag).replace("</$tag","</"+tag).replace("$attributes",stringAttr).replace("$childrens", childrens == null ? '' : '\n   '+render( childrens , defaultTag , pretty ) );
-
-				if( pretty == true  ){ output += "\n";  }
-			});
-			// mostramos la salida
-			return output;
-
-		}	
-		// hay que ver que pasa aqui
-
-		return function( options ){
 			// https://www.w3schools.com/tags/ref_byfunc.asp
 			//http://xahlee.info/js/html5_non-closing_tag.html
-			// listar y categorizar							
-
-			this.tags = {
+			// listar y categorizar
+			//-----------------------------------------------------------------------------
+			function tagOpt	(category){
+				return {
+					'category':category
+				}
+			}							
+			//-----------------------------------------------------------------------------
+			var tags = {
 				'<!DOCTYPE>':tagOpt(['general','basic']),
 				'html':tagOpt(['general','basic']),
 				'head':tagOpt(['general','basic']),
@@ -272,10 +168,118 @@
 				'object':tagOpt('programing'),
 				'param':tagOpt('programing')
 
+			}	
+		//-----------------------------------------------------------------------------
+		var preOptions = preOptions || {};
+		//-----------------------------------------------------------------------------
+		function isString( obj ){			
+			return !!(obj === '' || (obj && obj.charCodeAt && obj.substr));			  
+		}
+		//-----------------------------------------------------------------------------
+		function isFunction( func ){
 
+			return func && {}.toString.call(func) === '[object Function]';
+
+		}
+		//-----------------------------------------------------------------------------
+		function has( obj , property ){
+			if( obj == null || obj == undefined || obj == true || obj == false ){ return false; }
+			return obj.hasOwnProperty( property );
+		}
+		//-----------------------------------------------------------------------------
+		var tagsNonClose = ['area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'];
+		//-----------------------------------------------------------------------------
+		var isTagClose = function( tag ){
+
+			return tagsNonClose.includes(tag);
+
+		}
+		//-----------------------------------------------------------------------------
+		var isNull = function( obj ){
+
+			return obj === null;
+
+		}
+		//-----------------------------------------------------------------------------
+		var getBeforeContent = function( obj ){
+			
+			return has( obj , 'beforeContent' )  ?  obj['beforeContent'] : null;
+
+		}
+		//-----------------------------------------------------------------------------
+		var getTag = function( obj , defaultTag){
+
+		    return has( obj , 'tag' ) ? obj['tag'] : defaultTag;
+		}
+		//-----------------------------------------------------------------------------
+		var getBase = function( tag ){
+
+			return isTagClose(tag) ? "<$tag $attributes/>":"<$tag $attributes>$childrens</$tag>";
+
+		}
+		//-----------------------------------------------------------------------------
+		var getAttr = function( obj ){
+
+			return has( obj ,'attr') ?  obj ['attr'] : {};
+
+		}
+		//-----------------------------------------------------------------------------
+		var getChildren = function( obj ){
+
+			return has( obj ,'children') ?  obj ['children'] : null;
+
+		}
+		//-----------------------------------------------------------------------------
+		var attrToString = function( attr ){
+
+			var stringAttr = '';
+
+			// Esto ocurre en el caso que attr sea un objeto
+			keys = Object.keys( attr );
+			
+			for( var i = 0; i <  keys.length; i++ ){
+				if( isString(attr[keys[i]])  ){
+					stringAttr += keys[i]+"=\""+attr[keys[i]]+"\" ";
+				}
 			}
 
+			return stringAttr;
 
+		}
+		//-----------------------------------------------------------------------------
+		var render = function( htmljson , defaultTag , pretty ){
+			// revisamos que sea un array
+			htmljson = ( isFunction(htmljson.forEach) && has(htmljson,'length') ) ? htmljson : [htmljson];
+			// variable de texto que va de salida
+			var output = "";				
+			// construimos elemento por elemento
+			htmljson.forEach(function( elemDom ){
+				// definos el tag 
+				var tag  = getTag(elemDom,defaultTag),
+				// definimos si el tag es cerrado o abierto
+				base = getBase(tag),
+				// verificamos que vengan los attributos
+				attr = getAttr(elemDom),
+				// verificamos 	que vengan hijos para el documento 
+				childrens = getChildren( elemDom ),
+				// la cadena para stringAttr
+				stringAttr = attrToString( attr );
+
+				output += base.replace("<$tag","<"+tag).replace("</$tag","</"+tag).replace("$attributes",stringAttr).replace("$childrens", isNull(childrens) ? '' : '\n   '+render( childrens , defaultTag , pretty ) );
+
+				if( pretty == true  ){ output += "\n";  }
+			});
+			// mostramos la salida
+			return output;
+		}	
+		// hay que ver que pasa aqui
+		//-----------------------------------------------------------------------------
+		return function( options ){			
+			
+			this.getAlltag = function(){
+				return tags;
+			}			
+			//-----------------------------------------------------------------------------
 			/*
 			*@name pretty
 			*@type bollean
@@ -284,30 +288,33 @@
 			* y verdadero para ordenado
 			*/
 			this.pretty = false;
-
+			//-----------------------------------------------------------------------------
 			this.setPretty = function( pretty ){
-				this.pretty = ( typeof pretty == 'boolean' ) ? pretty : this.pretty;
-			}
 
+				this.pretty = ( typeof pretty == 'boolean' ) ? pretty : this.pretty;
+
+			}
+			//-----------------------------------------------------------------------------
 			/*
 			*@options
 			*@desc contiene las variables basicacas para arrancar 
 			*el render del string html
 			*/
-			this.options = options == null || options == undefined ? {} :  options ;			
+			this.options = options == null || options == undefined ? {} :  options ;
+			//-----------------------------------------------------------------------------
 			/**
 			*@var html 
 			*@desc : Contendor del codigo html de forma de un string
 			*/
 			this.html = "";
-
+			//-----------------------------------------------------------------------------
 			this.structureJson = null;
 			/*
 			*@var defaultTag
 			*@desc : Cuando no se describe el valor tag se toma este valor como prederminado
 			*/
 			this.defaultTag = "div";					
-			//--------------------------------------------------------
+			//-----------------------------------------------------------------------------
 			/*
 			*@name load
 			*@type Function
@@ -318,7 +325,7 @@
 			this.load = function( htmljson ){
 				this.structureJson = ( isFunction(htmljson.forEach) && has(htmljson,'length') ) ? htmljson : [htmljson];				
 			}
-			//--------------------------------------------------------
+			//-----------------------------------------------------------------------------
 			/*
 			*@name render
 			*@type Function
@@ -334,43 +341,7 @@
 
 				return render(htmljson , this.defaultTag ,this.pretty);
 			}
-
-			//--------------------------------------------------------
-			this.element = function( elemDom , defaultTag , pretty){
-				// definos el tag 
-				var tag  = has(elemDom,'tag') ? elemDom['tag'] : defaultTag;
-				// definimos si el tag es cerrado o abierto
-				var base = isTagClose(tag) ? "<$tag $attributes/>":"<$tag $attributes>$childrens</$tag>";
-				// verificamos que vengan los attributos
-				var attr = elemDom.hasOwnProperty('attr') ? elemDom['attr'] : {};
-				// verificamos 	que vengan hijos para el documento 
-				var childrens = elemDom.hasOwnProperty('children') ? elemDom['children'] : null;
-				// la cadena para stringAttr
-				var stringAttr = '';				
-				// 
-				var keys = Object.keys( attr );
-				
-				for( var i = 0; i <  keys.length; i++ ){
-
-					stringAttr += keys[i]+"=\""+attr[keys[i]];					
-
-				}
-														
-				base = base.replace("<$tag","<"+tag).replace("</$tag","</"+tag);
-
-				base = base.replace("$attributes",stringAttr);
-
-				if( childrens == null ){
-					base = base.replace("$childrens","");
-				}else{
-					var render = this.render;
-					base = base.replace("$childrens", render(childrens).bind(this) );
-				}
-				
-
-				return base; 
-			}
-			//--------------------------------------------------------
+			//-----------------------------------------------------------------------------						
 		}
 	}
 //-----------------------------------------------------------------------------
