@@ -48,6 +48,10 @@
 			return tagsNonClose.includes(tag);
 
 		}
+		
+		var getTag = function( obj , defaultTag){
+		  return has( obj , 'tag' ) ? obj['tag'] : defaultTag;
+		}
 
 		var render = function( htmljson , defaultTag , pretty ){			
 			console.log("I´m Render ...");
