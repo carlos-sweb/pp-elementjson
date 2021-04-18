@@ -1,0 +1,23 @@
+{
+  "name": "pp-elemjson",
+  "version": "1.0.0",
+  "description": "Simple created element from json",
+  "main": "ElementJs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlos-sweb/ElementJs.git"
+  },
+  "keywords": [
+    "json",
+    "element"
+  ],
+  "author": "Carlos Illesca",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/carlos-sweb/ElementJs/issues"
+  },
+  "homepage": "https://github.com/carlos-sweb/ElementJs#readme"
+}

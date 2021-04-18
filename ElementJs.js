@@ -88,7 +88,6 @@
 				'wbr':tagOpt('formating'),
 
 
-
 				'form':tagOpt('form'),
 				'input':tagOpt('form'),
 				'textarea':tagOpt('form'),
@@ -183,8 +182,11 @@
 		}
 		//-----------------------------------------------------------------------------
 		function has( obj , property ){
+
 			if( obj == null || obj == undefined || obj == true || obj == false ){ return false; }
+
 			return obj.hasOwnProperty( property );
+
 		}
 		//-----------------------------------------------------------------------------
 		var tagsNonClose = ['area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'];
@@ -203,7 +205,13 @@
 		//-----------------------------------------------------------------------------
 		var getBeforeContent = function( obj ){
 			
-			return has( obj , 'beforeContent' )  ?  obj['beforeContent'] : null;
+			return has( obj , 'beforeContent' )  ? isString(obj['beforeContent']) ? obj['beforeContent']: null  : null;
+
+		}
+		//-----------------------------------------------------------------------------
+		var getAfterContent = function( obj ){
+			
+			return has( obj , 'afterContent' )  ? isString(obj['afterContent']) ? obj['afterContent'] : null   : null;
 
 		}
 		//-----------------------------------------------------------------------------
@@ -214,7 +222,7 @@
 		//-----------------------------------------------------------------------------
 		var getBase = function( tag ){
 
-			return isTagClose(tag) ? "<$tag $attributes/>":"<$tag $attributes>$childrens</$tag>";
+			return isTagClose(tag) ? "<$tag$attributes/>":"<$tag$attributes>$beforeContent$childrens$afterContent</$tag>";
 
 		}
 		//-----------------------------------------------------------------------------
@@ -229,6 +237,15 @@
 			return has( obj ,'children') ?  obj ['children'] : null;
 
 		}
+		var getlevel = function( level ){
+
+			var stringLevel = "";
+
+			for( var i = 0; i < level ; i++ ){
+				stringLevel += " ";
+			}
+			return stringLevel;
+		}		
 		//-----------------------------------------------------------------------------
 		var attrToString = function( attr ){
 
@@ -247,11 +264,12 @@
 
 		}
 		//-----------------------------------------------------------------------------
-		var render = function( htmljson , defaultTag , pretty ){
+		var render = function( htmljson , defaultTag , pretty , level){			
+
 			// revisamos que sea un array
 			htmljson = ( isFunction(htmljson.forEach) && has(htmljson,'length') ) ? htmljson : [htmljson];
 			// variable de texto que va de salida
-			var output = "";				
+			var output = "";			
 			// construimos elemento por elemento
 			htmljson.forEach(function( elemDom ){
 				// definos el tag 
@@ -262,10 +280,23 @@
 				attr = getAttr(elemDom),
 				// verificamos 	que vengan hijos para el documento 
 				childrens = getChildren( elemDom ),
+				// 
+				beforeContent = getBeforeContent( elemDom ),
+				//
+				afterContent = getAfterContent( elemDom ),
+				
+				stringLevel = getlevel( level ),
 				// la cadena para stringAttr
 				stringAttr = attrToString( attr );
+				
+				output += pretty ?  stringLevel : '';
 
-				output += base.replace("<$tag","<"+tag).replace("</$tag","</"+tag).replace("$attributes",stringAttr).replace("$childrens", isNull(childrens) ? '' : '\n   '+render( childrens , defaultTag , pretty ) );
+				output += base.replace("<$tag","<"+tag)
+				.replace("</$tag", (pretty && !isNull(childrens) ? stringLevel :'')+"</"+tag )
+				.replace("$attributes",' '+stringAttr)
+				.replace("$childrens", isNull(childrens) ? '' : ( pretty ? '\n':'')+render( childrens , defaultTag , pretty , (level+1) ) )
+				.replace("$afterContent", isNull(afterContent) ? '': afterContent )
+				.replace("$beforeContent", isNull(beforeContent) ? '':beforeContent )
 
 				if( pretty == true  ){ output += "\n";  }
 			});
@@ -275,7 +306,7 @@
 		// hay que ver que pasa aqui
 		//-----------------------------------------------------------------------------
 		return function( options ){			
-			
+			//-----------------------------------------------------------------------------
 			this.getAlltag = function(){
 				return tags;
 			}			
@@ -339,7 +370,7 @@
 				// o necesitaremos usar la variable structureJson
 				var htmljson = htmljson == null || htmljson == undefined ? this.structureJson : htmljson;
 
-				return render(htmljson , this.defaultTag ,this.pretty);
+				return render( htmljson , this.defaultTag , this.pretty , 0 );
 			}
 			//-----------------------------------------------------------------------------						
 		}
