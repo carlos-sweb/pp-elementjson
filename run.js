@@ -1,13 +1,8 @@
-var ElementJs  = require('./ElementJs.js');
+var ElementJs  = require('./pp-elementjson.js');
 
-
-var elem = new ElementJs({
-
-});
-
+var elem = new ElementJs({});
 
 var ppElem = new elem();
-
 
 ppElem.setPretty(true);
 
@@ -32,7 +27,5 @@ ppElem.load([{
 			afterContent:"Amigos mios"
 		}]		
 }]);
-
-//console.log( ppElem.tags );
 
 console.log( ppElem.render() );
