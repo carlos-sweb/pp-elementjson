@@ -2,7 +2,7 @@
 /*!!
  * Power Panel Model <https://github.com/carlos-sweb/pp-model>
  * @author Carlos Illesca <c4rl0sill3sc4@gmail.com>
- * @version 1.0.1 (2020/02/28 09:40 AM)
+ * @version 1.0.0 (2020/02/28 09:40 AM)
  * Released under the MIT License
  */
 (function(global , factory ){
@@ -169,17 +169,21 @@
 
 			}	
 		//-----------------------------------------------------------------------------
+		// las pre-options para cargar una instancia antes
 		var preOptions = preOptions || {};
 		//-----------------------------------------------------------------------------
+		// Funcion que verifica que es string 
 		function isString( obj ){			
 			return !!(obj === '' || (obj && obj.charCodeAt && obj.substr));			  
 		}
 		//-----------------------------------------------------------------------------
+		// Funcion que verifica que es Function
 		function isFunction( func ){
 
 			return func && {}.toString.call(func) === '[object Function]';
 
 		}
+		// Function que verifica que exista 
 		//-----------------------------------------------------------------------------
 		function has( obj , property ){
 
@@ -189,54 +193,65 @@
 
 		}
 		//-----------------------------------------------------------------------------
+		// lista de tag que no nocesitan cierre 
 		var tagsNonClose = ['area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'];
 		//-----------------------------------------------------------------------------
+		// verifica que el tag se cierra o no
 		var isTagClose = function( tag ){
 
 			return tagsNonClose.includes(tag);
 
 		}
 		//-----------------------------------------------------------------------------
+		// Verificamos que el la variable sea null
 		var isNull = function( obj ){
 
 			return obj === null;
 
 		}
 		//-----------------------------------------------------------------------------
+		// Obtenemos el before Content proveniente del objeto
 		var getBeforeContent = function( obj ){
 			
 			return has( obj , 'beforeContent' )  ? isString(obj['beforeContent']) ? obj['beforeContent']: null  : null;
 
 		}
 		//-----------------------------------------------------------------------------
+		// Obtenemos el after content del objecto
 		var getAfterContent = function( obj ){
 			
 			return has( obj , 'afterContent' )  ? isString(obj['afterContent']) ? obj['afterContent'] : null   : null;
 
 		}
+		// Obtenemos el tag dele lemento
 		//-----------------------------------------------------------------------------
 		var getTag = function( obj , defaultTag){
 
 		    return has( obj , 'tag' ) ? obj['tag'] : defaultTag;
 		}
 		//-----------------------------------------------------------------------------
+		// obtenemos la base para remplaza segun el tag
 		var getBase = function( tag ){
 
 			return isTagClose(tag) ? "<$tag$attributes/>":"<$tag$attributes>$beforeContent$childrens$afterContent</$tag>";
 
 		}
 		//-----------------------------------------------------------------------------
+		// Obtenemos los attributos del elemento
 		var getAttr = function( obj ){
 
 			return has( obj ,'attr') ?  obj ['attr'] : {};
 
 		}
 		//-----------------------------------------------------------------------------
+		// obtenemos el hijo del elemento
 		var getChildren = function( obj ){
 
 			return has( obj ,'children') ?  obj ['children'] : null;
 
 		}
+		// Obtenemos los espacios para el nivil 
+		// siempre y cuando sea pretty la vista
 		var getlevel = function( level ){
 
 			var stringLevel = "";
@@ -247,6 +262,7 @@
 			return stringLevel;
 		}		
 		//-----------------------------------------------------------------------------
+		// convertimos los attributos en una cadena 
 		var attrToString = function( attr ){
 
 			var stringAttr = '';
@@ -255,8 +271,11 @@
 			keys = Object.keys( attr );
 			
 			for( var i = 0; i <  keys.length; i++ ){
+
 				if( isString(attr[keys[i]])  ){
+
 					stringAttr += keys[i]+"=\""+attr[keys[i]]+"\" ";
+
 				}
 			}
 
@@ -264,6 +283,7 @@
 
 		}
 		//-----------------------------------------------------------------------------
+		// rtendereizamos 
 		var render = function( htmljson , defaultTag , pretty , level){			
 
 			// revisamos que sea un array

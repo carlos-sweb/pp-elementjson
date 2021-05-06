@@ -1,4 +1,4 @@
-var ElementJs  = require('./pp-elementjson.js');
+var ElementJs  = require('./pp-elementjson.min.js');
 
 var elem = new ElementJs({});
 
