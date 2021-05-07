@@ -2,7 +2,7 @@
 /*!!
  * Power Panel elementjson <https://github.com/carlos-sweb/pp-elementjson>
  * @author Carlos Illesca <c4rl0sill3sc4@gmail.com>
- * @version 1.0.1 (2020/02/28 09:40 AM)
+ * @version 1.0.2 (2020/05/07 19:04 PM)
  * Released under the MIT License
  */
 (function(global , factory ){
@@ -29,7 +29,7 @@
 			//-----------------------------------------------------------------------------
       // Necesito crear un mapa de categoryas
 			var tags = {
-				'<!DOCTYPE>':tagOpt(['general','basic']),
+				'<!DOCTYPE>':['general','basic'],
 				'html': ['general','basic'] ,
 				'head':['general','basic'],
 				'title':['general','basic'],

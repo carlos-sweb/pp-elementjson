@@ -5,7 +5,7 @@
 In the web project include pp-elementjson.js with:
 
 ```
-<script src="https://cdn.jsdelivr.net/npm/pp-elementjson.js@1.0.1/pp-elementjson.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/pp-elementjson.js@1.0.2/pp-elementjson.min.js" ></script>
 ```
 
 Or
