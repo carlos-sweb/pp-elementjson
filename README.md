@@ -5,10 +5,10 @@
 In the web project include pp-elementjson.js with:
 
 ```
-<script src="https://cdn.jsdelivr.net/npm/pp-elementjson.js@1.0.0/pp-elementjson.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/pp-elementjson.js@1.0.1/pp-elementjson.min.js" ></script>
 ```
 
-Or 
+Or
 
 ## Install
 
@@ -20,9 +20,7 @@ npm i pp-elementjson.js --save
 
 ```javascript
 // Declare elementjson here
-var elem = new ElementJs({});
-
-var ppElem = new elem();
+var ppElem = new ppElementjson();
 
 ppElem.setPretty(true);
 
@@ -31,8 +29,8 @@ ppElem.load([{
 	attr:{
 		id:"hello",
 		class:"navbar"
-	}	
-},{	
+	}
+},{
 	attr:{
 		id:"other",
 		class:"section container-full",		

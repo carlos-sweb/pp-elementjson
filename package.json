@@ -2,13 +2,13 @@
   "name": "pp-elementjson.js",
   "version": "1.0.0",
   "description": "Simple created element from json",
-  "main": "ElementJs.js",
+  "main": "pp-elementjson.json",
   "scripts": {
     "compile": "terser --output pp-elementjson.min.js --compress --mangle -- pp-elementjson.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/carlos-sweb/ElementJs.git"
+    "url": "git+https://github.com/carlos-sweb/pp-elementjson.git"
   },
   "keywords": [
     "json",

@@ -1,8 +1,6 @@
-var ElementJs  = require('./pp-elementjson.min.js');
+var ppElementjson  = require('./pp-elementjson.js');
 
-var elem = new ElementJs({});
-
-var ppElem = new elem();
+var ppElem = new ppElementjson();
 
 ppElem.setPretty(true);
 
@@ -11,11 +9,11 @@ ppElem.load([{
 	attr:{
 		id:"hola",
 		class:"navbar"
-	}	
-},{	
+	}
+},{
 	attr:{
 		id:"otro",
-		class:"section container-full",		
+		class:"section container-full",
 	},
 	children:[{
 			tag:"h1",
@@ -25,7 +23,7 @@ ppElem.load([{
 			},
 			beforeContent: "Hola a todos ",
 			afterContent:"Amigos mios"
-		}]		
+		}]
 }]);
 
 console.log( ppElem.render() );
