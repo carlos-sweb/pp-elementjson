@@ -2,7 +2,7 @@
 /*!!
  * Power Panel elementjson <https://github.com/carlos-sweb/pp-elementjson>
  * @author Carlos Illesca <c4rl0sill3sc4@gmail.com>
- * @version 1.0.2 (2020/05/07 19:04 PM)
+ * @version 1.0.3 (2020/05/09 20:30 PM)
  * Released under the MIT License
  */
 (function(global , factory ){
@@ -368,7 +368,9 @@
 			*@return - void
 			*/
 			this.load = function( htmljson ){
-				this.structureJson = ( isFunction(htmljson.forEach) && has(htmljson,'length') ) ? htmljson : [htmljson];
+        if( htmljson !== null || typeof htmljson !== 'undefined' ){
+          this.structureJson = ( isFunction(htmljson.forEach) && has(htmljson,'length') ) ? htmljson : [htmljson];
+        }
 			}
 			//-----------------------------------------------------------------------------
 			/*
@@ -384,7 +386,8 @@
 				// o necesitaremos usar la variable structureJson
 				var htmljson = htmljson == null || htmljson == undefined ? this.structureJson : htmljson;
 
-				return render( htmljson , this.defaultTag , this.pretty , 0 );
+        return htmljson !== null ? render( htmljson , this.defaultTag , this.pretty , 0 ) : '';
+
 			}
 			//-----------------------------------------------------------------------------
 	}
