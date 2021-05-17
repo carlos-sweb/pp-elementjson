@@ -12,7 +12,7 @@ Or
 
 ## Install
 
-```
+```console
 npm i pp-elementjson.js --save
 ```
 
@@ -47,7 +47,6 @@ ppElem.load([{
 }]);
 
 console.log( ppElem.render() );
-
 ```
 
 ## Methods
