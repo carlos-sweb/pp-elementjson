@@ -25,25 +25,25 @@ var ppElem = new ppElementjson();
 ppElem.setPretty(true);
 
 ppElem.load([{
-	tag:"div",
-	attr:{
-		id:"hello",
-		class:"navbar"
-	}
+  tag:"div",
+  attr:{
+    id:"hello",
+    class:"navbar"
+  }
 },{
-	attr:{
-		id:"other",
-		class:"section container-full",		
-	},
-	children:[{
-			tag:"h1",
-			attr:{
-				id:"title-uno",
-				class:"othermore"
-			},
-			beforeContent: " Hi everyone ",
-			afterContent:" Hi Buddy"
-		}]		
+  attr:{
+    id:"other",
+    class:"section container-full",
+  },
+  children:[{
+      tag:"h1",
+      attr:{
+        id:"title-uno",
+        class:"othermore"
+      },
+      beforeContent: " Hi everyone ",
+      afterContent:" Hi Buddy"
+		}]
 }]);
 
 console.log( ppElem.render() );

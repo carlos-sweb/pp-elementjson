@@ -4,7 +4,7 @@
   "description": "Simple created element from json",
   "main": "pp-elementjson.json",
   "scripts": {
-    "compile": "terser --output pp-elementjson.min.js --compress --mangle -- pp-elementjson.js"
+    "compile": "terser --output pp-elementjson.min.js --compress --mangle --comments false -- pp-elementjson.js"
   },
   "repository": {
     "type": "git",

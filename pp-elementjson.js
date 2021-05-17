@@ -21,375 +21,346 @@
 
 })( this,(function() {
 
-	return function( options ){
+  var categorys = {
+    'general':0,
+    'basic':1,
+    'title':2,
+    'text':3,
+    'formating':4,
+    'form':5,
+    'frame':6,
+    'images':7,
+    'audio/video':8,
+    'link':9,
+    'list':10,
+    'table':11,
+    'semantic':12,
+    'meta/info':13,
+    'programing':14
+  }
+  // https://www.w3schools.com/tags/ref_byfunc.asp
+  //http://xahlee.info/js/html5_non-closing_tag.html
+  // listar y categorizar
+  //-----------------------------------------------------------------------------
+  // Necesito crear un mapa de categoryas
+  var tags = {
+    '<!DOCTYPE>':[0,1],
+    'html': [0,1] ,
+    'head':[0,1],
+    'title':[0,1],
+    'body':[0,1],
 
-			// https://www.w3schools.com/tags/ref_byfunc.asp
-			//http://xahlee.info/js/html5_non-closing_tag.html
-			// listar y categorizar
-			//-----------------------------------------------------------------------------
-      // Necesito crear un mapa de categoryas
-			var tags = {
-				'<!DOCTYPE>':['general','basic'],
-				'html': ['general','basic'] ,
-				'head':['general','basic'],
-				'title':['general','basic'],
-				'body':['general','basic'],
+    'h1':[2],
+    'h2':[2],
+    'h3':[2],
+    'h4':[2],
+    'h5':[2],
+    'h6':[2],
 
-				'h1':['title'],
-				'h2':['title'],
-				'h3':['title'],
-				'h4':['title'],
-				'h5':['title'],
-				'h6':['title'],
+    'p':[3],
+    'br':[3],
+    'hr':[3],
+    '<!--...-->':[0,1],
 
-				'p':['text'],
-				'br':['text'],
-				'hr':['text'],
-				'<!--...-->':['general','basic'],
+    'abbr':[4],
+    'address':[4],
+    'b':[4],
+    'bdi':[4],
+    'bdo':[4],
+    'blockquote':[4],
+    'cite':[4],
+    'code':[4],
+    'del':[4],
+    'dfn':[4],
+    'em':[4],
+    'i':[4],
+    'ins':[4],
+    'kbd':[4],
+    'mark':[4],
+    'meter':[4],
+    'pre':[4],
+    'progress':[4],
+    'q':[4],
 
-				'abbr':['formating'],
-				'address':['formating'],
-				'b':['formating'],
-				'bdi':['formating'],
-				'bdo':['formating'],
-				'blockquote':['formating'],
-				'cite':['formating'],
-				'code':['formating'],
-				'del':['formating'],
-				'dfn':['formating'],
-				'em':['formating'],
-				'i':['formating'],
-				'ins':['formating'],
-				'kbd':['formating'],
-				'mark':['formating'],
-				'meter':['formating'],
-				'pre':['formating'],
-				'progress':['formating'],
-				'q':['formating'],
-
-				'rp':['formating'],
-				'rt':['formating'],
-				'ruby':['formating'],
-				's':['formating'],
-				'samp':['formating'],
-				'small':['formating'],
-				'strong':['formating'],
-				'sub':['formating'],
-				'sup':['formating'],
-				'template':['formating'],
-				'time':['formating'],
-				'u':['formating'],
-				'var':['formating'],
-				'wbr':['formating'],
-
-
-				'form':['form'],
-				'input':['form'],
-				'textarea':['form'],
-				'button':['form'],
-				'select':['form'],
-				'optgroup':['form'],
-				'option':['form'],
-				'label':['form'],
-				'fieldset':['form'],
-				'legend':['form'],
-				'datalist':['form'],
-				'output':['form'],
-
-				'iframe':['frame'],
-
-
-				'img':['images'],
-				'map':['images'],
-				'area':['images'],
-				'canvas':['images'],
-				'figcaption':['images'],
-				'figure':['images'],
-				'picture':['images'],
-				'svg':['images'],
-
-				'audio':['audio/video'],
-				'source':['audio/video'],
-				'track':['audio/video'],
-				'video':['audio/video'],
-
-				'a':['link'],
-				'link':['link'],
-				'nav':['link'],
+    'rp':[4],
+    'rt':[4],
+    'ruby':[4],
+    's':[4],
+    'samp':[4],
+    'small':[4],
+    'strong':[4],
+    'sub':[4],
+    'sup':[4],
+    'template':[4],
+    'time':[4],
+    'u':[4],
+    'var':[4],
+    'wbr':[4],
 
 
-				'ul':['list'],
-				'ol':['list'],
-				'li':['list'],
-				'dl':['list'],
-				'dt':['list'],
-				'dd':['list'],
+    'form':[5],
+    'input':[5],
+    'textarea':[5],
+    'button':[5],
+    'select':[5],
+    'optgroup':[5],
+    'option':[5],
+    'label':[5],
+    'fieldset':[5],
+    'legend':[5],
+    'datalist':[5],
+    'output':[5],
+
+    'iframe':[6],
 
 
-				'table':['table'],
-				'caption':['table'],
-				'th':['table'],
-				'tr':['table'],
-				'td':['table'],
-				'thead':['table'],
-				'tbody':['table'],
-				'tfoot':['table'],
-				'col':['table'],
-				'colgroup':['table'],
+    'img':[7],
+    'map':[7],
+    'area':[7],
+    'canvas':[7],
+    'figcaption':[7],
+    'figure':[7],
+    'picture':[7],
+    'svg':[7],
 
-				'style':['semantic'],
-				'div':['semantic'],
-				'span':['semantic'],
-				'header':['semantic'],
-				'footer':['semantic'],
-				'main':['semantic'],
-				'section':['semantic'],
-				'article':['semantic'],
-				'aside':['semantic'],
-				'details':['semantic'],
-				'dialog':['semantic'],
-				'summary':['semantic'],
-				'data':['semantic'],
+    'audio':[8],
+    'source':[8],
+    'track':[8],
+    'video':[8],
+
+    'a':[9],
+    'link':[9],
+    'nav':[9],
 
 
-				'head':['meta/info'],
-				'meta':['meta/info'],
-				'base':['meta/info'],
+    'ul':[10],
+    'ol':[10],
+    'li':[10],
+    'dl':[10],
+    'dt':[10],
+    'dd':[10],
 
-				'script':['programing'],
-				'noscript':['programing'],
-				'embed':['programing'],
-				'object':['programing'],
-				'param':['programing']
 
-			}
-		//-----------------------------------------------------------------------------
-		// las pre-options para cargar una instancia antes
-		//-----------------------------------------------------------------------------
-		// Funcion que verifica que es string
-		function isString( obj ){
-			return !!(obj === '' || (obj && obj.charCodeAt && obj.substr));
-		}
-		//-----------------------------------------------------------------------------
-		// Funcion que verifica que es Function
-		function isFunction( func ){
+    'table':[11],
+    'caption':[11],
+    'th':[11],
+    'tr':[11],
+    'td':[11],
+    'thead':[11],
+    'tbody':[11],
+    'tfoot':[11],
+    'col':[11],
+    'colgroup':[11],
 
-			return func && {}.toString.call(func) === '[object Function]';
+    'style':[12],
+    'div':[12],
+    'span':[12],
+    'header':[12],
+    'footer':[12],
+    'main':[12],
+    'section':[12],
+    'article':[12],
+    'aside':[12],
+    'details':[12],
+    'dialog':[12],
+    'summary':[12],
+    'data':[12],
 
-		}
-		// Function que verifica que exista
-		//-----------------------------------------------------------------------------
-		function has( obj , property ){
 
-			if( obj == null || obj == undefined || obj == true || obj == false ){ return false; }
+    'head':[13],
+    'meta':[13],
+    'base':[13],
 
-			return obj.hasOwnProperty( property );
+    'script':[14],
+    'noscript':[14],
+    'embed':[14],
+    'object':[14],
+    'param':[14]
 
-		}
-		//-----------------------------------------------------------------------------
-		// lista de tag que no nocesitan cierre
-		var tagsNonClose = ['area','base','br','col','embed','hr','img','input',
-    'link','meta','param','source','track','wbr'];
-		//-----------------------------------------------------------------------------
-		// verifica que el tag se cierra o no
-		var isTagClose = function( tag ){
+  }
+//-----------------------------------------------------------------------------
+// las pre-options para cargar una instancia antes
+//-----------------------------------------------------------------------------
+// Funcion que verifica que es string
+function isString( obj ){
+  return !!(obj === '' || (obj && obj.charCodeAt && obj.substr));
+}
+//-----------------------------------------------------------------------------
+// Funcion que verifica que es Function
+function isFunction( func ){
+  return func && {}.toString.call(func) === '[object Function]';
+}
+// Function que verifica que exista
+//-----------------------------------------------------------------------------
+function has( obj , property ){
 
-			return tagsNonClose.includes(tag);
+  if( obj == null || obj == undefined || obj == true || obj == false ){ return false; }
 
-		}
-		//-----------------------------------------------------------------------------
-		// Verificamos que el la variable sea null
-		var isNull = function( obj ){
+  return obj.hasOwnProperty( property );
 
-			return obj === null;
+}
+//-----------------------------------------------------------------------------
+// lista de tag que no nocesitan cierre
+var tagsNonClose = ['area','base','br','col','embed','hr','img','input',
+'link','meta','param','source','track','wbr'];
+//-----------------------------------------------------------------------------
+// verifica que el tag se cierra o no
+function isTagClose( tag ){
 
-		}
-		//-----------------------------------------------------------------------------
-		// Obtenemos el before Content proveniente del objeto
-		var getBeforeContent = function( obj ){
+  return tagsNonClose.includes(tag);
 
-			return has( obj , 'beforeContent' )  ? isString(obj['beforeContent']) ? obj['beforeContent']: null  : null;
+}
+//-----------------------------------------------------------------------------
+// Verificamos que el la variable sea null
+function isNull( obj ){
 
-		}
-		//-----------------------------------------------------------------------------
-		// Obtenemos el after content del objecto
-		var getAfterContent = function( obj ){
+  return obj === null;
 
-			return has( obj , 'afterContent' )  ? isString(obj['afterContent']) ? obj['afterContent'] : null   : null;
+}
+//-----------------------------------------------------------------------------
+// Obtenemos el before Content proveniente del objeto
+function getBeforeContent( obj ){
 
-		}
-		// Obtenemos el tag dele lemento
-		//-----------------------------------------------------------------------------
-		var getTag = function( obj , defaultTag){
+  return has( obj , 'beforeContent' )  ? isString(obj['beforeContent']) ? obj['beforeContent']: null  : null;
 
-		    return has( obj , 'tag' ) ? obj['tag'] : defaultTag;
-		}
-		//-----------------------------------------------------------------------------
-		// obtenemos la base para remplaza segun el tag
-		var getBase = function( tag ){
+}
+//-----------------------------------------------------------------------------
+// Obtenemos el after content del objecto
+function getAfterContent( obj ){
 
-			return isTagClose(tag) ? "<$tag$attributes/>":"<$tag$attributes>$beforeContent$childrens$afterContent</$tag>";
+  return has( obj , 'afterContent' )  ? isString(obj['afterContent']) ? obj['afterContent'] : null   : null;
 
-		}
-		//-----------------------------------------------------------------------------
-		// Obtenemos los attributos del elemento
-		var getAttr = function( obj ){
+}
+// Obtenemos el tag dele lemento
+//-----------------------------------------------------------------------------
+function getTag( obj , defaultTag){
 
-			return has( obj ,'attr') ?  obj ['attr'] : {};
+    return has( obj , 'tag' ) ? obj['tag'] : defaultTag;
+}
+//-----------------------------------------------------------------------------
+// obtenemos la base para remplaza segun el tag
+function getBase( tag ){
 
-		}
-		//-----------------------------------------------------------------------------
-		// obtenemos el hijo del elemento
-		var getChildren = function( obj ){
+  return isTagClose(tag) ? "<$tag$attributes/>":"<$tag$attributes>$beforeContent$childrens$afterContent</$tag>";
 
-			return has( obj ,'children') ?  obj ['children'] : null;
+}
+//-----------------------------------------------------------------------------
+// Obtenemos los attributos del elemento
+function getAttr( obj ){
 
-		}
-		// Obtenemos los espacios para el nivil
-		// siempre y cuando sea pretty la vista
-		var getlevel = function( level ){
+  return has( obj ,'attr') ?  obj ['attr'] : {};
 
-			var stringLevel = "";
+}
+//-----------------------------------------------------------------------------
+// obtenemos el hijo del elemento
+function getChildren( obj ){
 
-			for( var i = 0; i < level ; i++ ){
-				stringLevel += " ";
-			}
-			return stringLevel;
-		}
-		//-----------------------------------------------------------------------------
-		// convertimos los attributos en una cadena
-		var attrToString = function( attr ){
+  return has( obj ,'children') ?  obj ['children'] : null;
 
-			var stringAttr = '';
+}
+// Obtenemos los espacios para el nivil
+// siempre y cuando sea pretty la vista
+function getlevel( level ){
 
-			// Esto ocurre en el caso que attr sea un objeto
-			keys = Object.keys( attr );
+  var stringLevel = "";
 
-			for( var i = 0; i <  keys.length; i++ ){
+  for( var i = 0; i < level ; i++ ){
+    stringLevel += " ";
+  }
+  return stringLevel;
+}
+//-----------------------------------------------------------------------------
+// convertimos los attributos en una cadena
+function attrToString( attr ){
 
-				if( isString(attr[keys[i]])  ){
+  var stringAttr = '';
 
-					stringAttr += keys[i]+"=\""+attr[keys[i]]+"\" ";
+  // Esto ocurre en el caso que attr sea un objeto
+  keys = Object.keys( attr );
 
-				}
-			}
+  for( var i = 0; i <  keys.length; i++ ){
 
-			return stringAttr;
+    if( isString(attr[keys[i]])  ){
 
-		}
-		//-----------------------------------------------------------------------------
-		// rtendereizamos
-		var render = function( htmljson , defaultTag , pretty , level){
+      stringAttr += keys[i]+"=\""+attr[keys[i]]+"\" ";
 
-			// revisamos que sea un array
-			htmljson = ( isFunction(htmljson.forEach) && has(htmljson,'length') ) ? htmljson : [htmljson];
-			// variable de texto que va de salida
-			var output = "";
-			// construimos elemento por elemento
-			htmljson.forEach(function( elemDom ){
-				// definos el tag
-				var tag  = getTag(elemDom,defaultTag),
-				// definimos si el tag es cerrado o abierto
-				base = getBase(tag),
-				// verificamos que vengan los attributos
-				attr = getAttr(elemDom),
-				// verificamos 	que vengan hijos para el documento
-				childrens = getChildren( elemDom ),
-				//
-				beforeContent = getBeforeContent( elemDom ),
-				//
-				afterContent = getAfterContent( elemDom ),
+    }
+  }
 
-				stringLevel = getlevel( level ),
-				// la cadena para stringAttr
-				stringAttr = attrToString( attr );
+  return stringAttr;
 
-				output += pretty ?  stringLevel : '';
+}
+//-----------------------------------------------------------------------------
+// rtendereizamos
+function render( htmljson , defaultTag , pretty , level){
 
-				output += base.replace("<$tag","<"+tag)
-				.replace("</$tag", (pretty && !isNull(childrens) ? stringLevel :'')+"</"+tag )
-				.replace("$attributes",' '+stringAttr)
-				.replace("$childrens", isNull(childrens) ? '' : ( pretty ? '\n':'')+render( childrens , defaultTag , pretty , (level+1) ) )
-				.replace("$afterContent", isNull(afterContent) ? '': afterContent )
-				.replace("$beforeContent", isNull(beforeContent) ? '':beforeContent )
+  // revisamos que sea un array
+  htmljson = ( isFunction(htmljson.forEach) && has(htmljson,'length') ) ? htmljson : [htmljson];
+  // variable de texto que va de salida
+  var output = "";
+  // construimos elemento por elemento
+  htmljson.forEach(function( elemDom ){
+    // definos el tag
+    var tag  = getTag(elemDom,defaultTag),
+    // definimos si el tag es cerrado o abierto
+    base = getBase(tag),
+    // verificamos que vengan los attributos
+    attr = getAttr(elemDom),
+    // verificamos 	que vengan hijos para el documento
+    childrens = getChildren( elemDom ),
+    //
+    beforeContent = getBeforeContent( elemDom ),
+    //
+    afterContent = getAfterContent( elemDom ),
 
-				if( pretty == true  ){ output += "\n";  }
-			});
-			// mostramos la salida
-			return output;
-		}
-		// hay que ver que pasa aqui
-		//-----------------------------------------------------------------------------
-			//-----------------------------------------------------------------------------
-			this.getAlltag = function(){
-				return tags;
-			}
-			//-----------------------------------------------------------------------------
-			/*
-			*@name pretty
-			*@type bollean
-			*@description es base ha esta funcion el codigo de salida se mostrara
-			*de una forma ordenada o comprimida siendo falso para comprimido
-			* y verdadero para ordenado
-			*/
-			this.pretty = false;
-			//-----------------------------------------------------------------------------
-			this.setPretty = function( pretty ){
+    stringLevel = getlevel( level ),
+    // la cadena para stringAttr
+    stringAttr = attrToString( attr );
 
-				this.pretty = ( typeof pretty == 'boolean' ) ? pretty : this.pretty;
+    output += pretty ?  stringLevel : '';
 
-			}
-			//-----------------------------------------------------------------------------
-			/*
-			*@options
-			*@desc contiene las variables basicacas para arrancar
-			*el render del string html
-			*/
-			this.options = options == null || options == undefined ? {} :  options ;
-			//-----------------------------------------------------------------------------
-			/**
-			*@var html
-			*@desc : Contendor del codigo html de forma de un string
-			*/
-			this.html = "";
-			//-----------------------------------------------------------------------------
-			this.structureJson = null;
-			/*
-			*@var defaultTag
-			*@desc : Cuando no se describe el valor tag se toma este valor como prederminado
-			*/
-			this.defaultTag = "div";
-			//-----------------------------------------------------------------------------
-			/*
-			*@name load
-			*@type Function
-			*@description - carga el objecto array con los Object para la construccion
-			*del texto html
-			*@return - void
-			*/
-			this.load = function( htmljson ){
-        if( htmljson !== null || typeof htmljson !== 'undefined' ){
-          this.structureJson = ( isFunction(htmljson.forEach) && has(htmljson,'length') ) ? htmljson : [htmljson];
-        }
-			}
-			//-----------------------------------------------------------------------------
-			/*
-			*@name render
-			*@type Function
-			*@description - construye los objetos html en una cadena de texto
-			*del texto html
-			*@return - string - la cadena final
-			*/
-			this.render = function( htmljson ){
+    output += base.replace("<$tag","<"+tag)
+    .replace("</$tag", (pretty && !isNull(childrens) ? stringLevel :'')+"</"+tag )
+    .replace("$attributes",' '+stringAttr)
+    .replace("$childrens", isNull(childrens) ? '' : ( pretty ? '\n':'')+render( childrens , defaultTag , pretty , (level+1) ) )
+    .replace("$afterContent", isNull(afterContent) ? '': afterContent )
+    .replace("$beforeContent", isNull(beforeContent) ? '':beforeContent )
 
-				// verificamos que htmljson este creado
-				// o necesitaremos usar la variable structureJson
-				var htmljson = htmljson == null || htmljson == undefined ? this.structureJson : htmljson;
+    if( pretty == true  ){ output += "\n";  }
+  });
+  // mostramos la salida
+  return output;
+}
 
-        return htmljson !== null ? render( htmljson , this.defaultTag , this.pretty , 0 ) : '';
+  var ppElementjson = function( options ){
+      this.pretty = false;
+      this.options = options == null || options == undefined ? {} :  options ;
+      this.html = '';
+      this.structureJson = null;
+      this.defaultTag = 'div'
+  },
+  proto = ppElementjson.prototype;
 
-			}
-			//-----------------------------------------------------------------------------
-	}
+  proto.getAlltag = function(){
+    return {'tags':tags,'categorys':categorys};
+  }
+  proto.setPretty = function( pretty ){
+    this.pretty = ( typeof pretty == 'boolean' ) ? pretty : this.pretty;
+  }
+  proto.load = function( htmljson ){
+    if( htmljson !== null || typeof htmljson !== 'undefined' ){
+      this.structureJson = ( isFunction(htmljson.forEach) && has(htmljson,'length') ) ? htmljson : [htmljson];
+    }
+  }
+
+  proto.render = function( htmljson ){
+    // verificamos que htmljson este creado
+    // o necesitaremos usar la variable structureJson
+    var htmljson = htmljson == null || htmljson == undefined ? this.structureJson : htmljson;
+
+    return htmljson !== null ? render( htmljson , this.defaultTag , this.pretty , 0 ) : '';
+  }
+
+  return ppElementjson;
 //-----------------------------------------------------------------------------
 }));
