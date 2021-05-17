@@ -52,13 +52,13 @@ console.log( ppElem.render() );
 
 ## Methods
 
-### load: [Function]
+### `load`
 
 ```javascript
 ppElem.load([Array]);
 ```
 
-### render: [Function]
+### `render`
 
 ```javascript
 ppElem.render();
