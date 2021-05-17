@@ -57,6 +57,7 @@ console.log( ppElem.render() );
 ```javascript
 ppElem.load([Array]);
 ```
+---
 
 ### `render`
 
